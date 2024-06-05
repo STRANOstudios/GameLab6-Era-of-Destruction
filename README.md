@@ -11,7 +11,6 @@
 - [Build](#Or-take-the-last-Build)
 - [Contributing](#contributing)
 - [License](#license)
-- [Contact](#contact)
 
 ## Gameplay
 
