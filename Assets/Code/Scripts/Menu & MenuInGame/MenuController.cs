@@ -1,15 +1,23 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-[DisallowMultipleComponent]
+[DisallowMultipleComponent, RequireComponent(typeof(AudioSource))]
 public class MenuController : MonoBehaviour
 {
-    [Header("Levels To Load")]
+    [Header("References")]
     [SerializeField, Tooltip("The name of the scene to be loaded")] private string sceneToBeLoad;
+
+    [SerializeField] private AudioClip sfxClick;
+
+    private AudioSource audioSource;
 
     public delegate void resumeDelegate();
     public static event resumeDelegate Resume;
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     #region Menu Buttons
 
@@ -20,6 +28,7 @@ public class MenuController : MonoBehaviour
 #else
         SceneManager.LoadScene(1);
 #endif
+        Pressed();
     }
 
     public void ExitButton()
@@ -29,6 +38,7 @@ public class MenuController : MonoBehaviour
 #else
         Application.Quit();
 #endif
+        Pressed();
     }
 
     public void ReturnButton()
@@ -38,11 +48,18 @@ public class MenuController : MonoBehaviour
 #else
         SceneManager.LoadScene(0);
 #endif
+        Pressed();
     }
 
     public void ResumeButton()
     {
         Resume?.Invoke();
+        Pressed();
+    }
+
+    public void Pressed()
+    {
+        if (audioSource && sfxClick) audioSource.PlayOneShot(sfxClick);
     }
 
     #endregion

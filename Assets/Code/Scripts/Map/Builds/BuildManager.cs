@@ -26,11 +26,13 @@ public class BuildManager : MonoBehaviour
     private Material material;
     private Transform _mesh;
     private AudioSource _audioSource;
+    private float _startHealth;
 
     private void Awake()
     {
         _collider = GetComponent<Collider>();
         _audioSource = GetComponent<AudioSource>();
+        _startHealth = health;
     }
 
     private void Start()
@@ -83,6 +85,8 @@ public class BuildManager : MonoBehaviour
         yield return StartCoroutine(FadeInOut(timeVFXSpawn));
 
         if (reconstructionParticles) reconstructionParticles.Stop();
+
+        health = _startHealth;
 
         #endregion
     }
