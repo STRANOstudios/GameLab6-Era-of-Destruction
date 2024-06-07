@@ -18,13 +18,19 @@ public class BuildManager : MonoBehaviour
     [SerializeField, Min(0.1f)] float timeVFXCollapse = 0.5f;
     [SerializeField, Min(0.1f)] float timeVFXSpawn = 0.5f;
 
+    [Header("SFX")]
+    [SerializeField] AudioClip sfxDestruction;
+    [SerializeField] AudioClip sfxReconstruction;
+
     private Collider _collider;
     private Material material;
     private Transform _mesh;
+    private AudioSource _audioSource;
 
     private void Awake()
     {
         _collider = GetComponent<Collider>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -47,48 +53,38 @@ public class BuildManager : MonoBehaviour
 
     private IEnumerator HandleDestructionReconstructionVFX()
     {
-        // Distruzione
-        if (destructionParticles != null)
-        {
-            destructionParticles.Play();
-        }
+        #region destruction
 
-        // Effetto di dissolvenza
+        if (destructionParticles) destructionParticles.Play();
+        if (_audioSource) _audioSource.PlayOneShot(sfxDestruction);
+
+        // Fade Out
         yield return StartCoroutine(FadeInOut(timeVFXCollapse));
 
         yield return new WaitForSeconds(timeVFXCollapse);
 
-        if (destructionParticles != null)
-        {
-            destructionParticles.Stop();
-        }
-        if (_collider != null)
-        {
-            _mesh.gameObject.SetActive(false);
-            _collider.enabled = false;
-        }
+        if (destructionParticles) destructionParticles.Stop();
+        if (_collider) _collider.enabled = false;
+        if (_mesh) _mesh.gameObject.SetActive(false);
 
-        // Ricostruzione
+        #endregion
+
         yield return new WaitForSeconds(timeToBuild);
 
-        if (reconstructionParticles != null)
-        {
-            reconstructionParticles.Play();
-        }
+        #region reconstruction
 
-        if (_collider != null)
-        {
-            _mesh.gameObject.SetActive(true);
-            _collider.enabled = true;
-        }
+        if (reconstructionParticles) reconstructionParticles.Play();
+        if (_audioSource) _audioSource.PlayOneShot(sfxReconstruction);
 
-        // Effetto di apparizione
+        if (_collider) _collider.enabled = true;
+        if (_mesh) _mesh.gameObject.SetActive(true);
+
+        // Fade In
         yield return StartCoroutine(FadeInOut(timeVFXSpawn));
 
-        if (reconstructionParticles != null)
-        {
-            reconstructionParticles.Stop();
-        }
+        if (reconstructionParticles) reconstructionParticles.Stop();
+
+        #endregion
     }
 
     private IEnumerator FadeInOut(float duration)
