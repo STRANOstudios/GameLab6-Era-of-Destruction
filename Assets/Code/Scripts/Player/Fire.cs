@@ -1,5 +1,3 @@
-using System.Collections;
-using UnityEditor;
 using UnityEngine;
 
 public class Fire : MonoBehaviour
@@ -21,7 +19,7 @@ public class Fire : MonoBehaviour
     private float nextFire1 = 0f;
     private float nextFire2 = 0f;
 
-
+    public Vector3 test;
 
     void Start()
     {
@@ -34,7 +32,7 @@ public class Fire : MonoBehaviour
         Fire2();
     }
 
-    void Fire1()
+    void Fire1() // Check
     {
         if (!fire1) return;
 
@@ -62,14 +60,5 @@ public class Fire : MonoBehaviour
             nextFire2 = Time.time + fire2Ratio;
             fire2.Play();
         }
-    }
-
-    private void OnDrawGizmos()
-    {
-        Handles.color = Color.yellow;
-
-        Vector3 direction = transform.forward;
-
-        Handles.DrawSolidArc(new(0, 0.5f, 0), Vector3.right, direction, coneAngle, maxDistance);
     }
 }
