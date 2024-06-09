@@ -1,6 +1,6 @@
-using Cinemachine;
 using UnityEngine;
 
+[DisallowMultipleComponent]
 public class Move : MonoBehaviour
 {
     [Header("Settings")]
@@ -8,6 +8,13 @@ public class Move : MonoBehaviour
     [SerializeField, Min(0)] float rotationSpeed = 5f;
 
     private InputHandler inputHandler;
+
+    public static Move Instance { get; private set; }
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
