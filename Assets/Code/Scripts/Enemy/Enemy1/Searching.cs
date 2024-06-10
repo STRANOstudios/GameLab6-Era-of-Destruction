@@ -16,9 +16,9 @@ internal class Searching : State
     {
         if (enemy.Target) enemy.NavMeshAgent.destination = enemy.Target.position;
 
-        if (IsTargetIn360View() && enemy.NavMeshAgent.remainingDistance <= enemy.ViewDistance)
+        if (IsTargetIn360View())
         {
-            nextState = new Attacking(enemy);
+            nextState = new Aiming(enemy);
             stage = EVENT.EXIT;
         }
     }

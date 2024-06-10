@@ -17,6 +17,7 @@ public class BuildManager : MonoBehaviour
     [Header("VFX")]
     [SerializeField, Min(0.1f)] float timeVFXCollapse = 0.5f;
     [SerializeField, Min(0.1f)] float timeVFXSpawn = 0.5f;
+    [SerializeField, Min(0f)] float collapseSpeed = 1f;
 
     [Header("SFX")]
     [SerializeField] AudioClip sfxDestruction;
@@ -64,7 +65,7 @@ public class BuildManager : MonoBehaviour
         if (destructionParticles) destructionParticles.Play();
         if (_audioSource) _audioSource.PlayOneShot(sfxDestruction);
 
-        StartCoroutine(Collapse(timeVFXCollapse));
+        StartCoroutine(Collapse(collapseSpeed));
         StartCoroutine(FadeInOut(timeVFXCollapse));
 
         if (_collider) _collider.enabled = false;
@@ -114,17 +115,21 @@ public class BuildManager : MonoBehaviour
         }
     }
 
-    private IEnumerator Collapse(float duration)
+    private IEnumerator Collapse(float speed)
     {
         float colliderSize = gameObject.GetComponent<Collider>().bounds.size.y;
+
+        float duration = colliderSize / speed;
+        float startY = _mesh.position.y;
+        float targetY = startY - colliderSize;
         float elapsed = 0f;
 
         while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
-            float y = Mathf.Lerp(_mesh.position.y, -colliderSize, duration / 3000f);
+            float t = elapsed / duration;
+            float y = Mathf.Lerp(startY, targetY, t);
             _mesh.position = new Vector3(_spawnPosition.x, y, _spawnPosition.z);
-            Debug.Log(gameObject.GetComponent<Collider>().bounds.size.y);
             yield return null;
         }
     }

@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-internal class Attacking : State
+internal class Aiming : State
 {
-    public Attacking(Enemy1Controller gameObject) : base(gameObject)
+    public Aiming(Enemy1Controller gameObject) : base(gameObject)
     {
         name = STATE.ATTACKING;
     }
@@ -15,12 +15,18 @@ internal class Attacking : State
 
     public override void Update()
     {
-        if (enemy.NavMeshAgent.remainingDistance > enemy.ViewDistance)
+        if (!IsTargetIn360View())
         {
             nextState = new Searching(enemy);
             stage = EVENT.EXIT;
             return;
         }
+        //if ()
+        //{
+        //    nextState = new Flee(enemy);
+        //    stage = EVENT.EXIT;
+        //    return;
+        //}
 
         if (enemy.Target) enemy.NavMeshAgent.destination = enemy.Target.position;
 

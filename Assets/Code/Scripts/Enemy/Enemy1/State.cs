@@ -7,7 +7,9 @@ public class State
         IDLE,
         SEARCHING,
         AIMING,
-        ATTACKING
+        ATTACKING,
+        DEAD,
+        FLEE
     }
 
     public enum EVENT
@@ -64,28 +66,58 @@ public class State
 
     protected bool IsTargetIn360View()
     {
-        // Calcola la direzione dalla canna da sparo al target
-        Vector3 directionToTarget = enemy.NavMeshAgent.destination - enemy.Barrel.position;
-        directionToTarget.y = 0; // Ignora la differenza di altezza
+        Vector3 targetPosition = enemy.Target.position;
 
-        // Controlla se il target è entro la distanza di vista
+        Vector3 directionToTarget = targetPosition - enemy.Barrel.position;
+        directionToTarget.y = 0;
+
         if (directionToTarget.magnitude <= enemy.ViewDistance)
         {
-            // Esegui un raycast per verificare la linea di vista
-            if (Physics.Raycast(enemy.Barrel.position, directionToTarget.normalized, out RaycastHit hit, enemy.ViewDistance, enemy.TargetMask))
+            if (Physics.Raycast(enemy.Barrel.position, directionToTarget.normalized, out RaycastHit hit, enemy.ViewDistance))
             {
-                return true;
+                Debug.DrawRay(enemy.Barrel.position, directionToTarget.normalized * enemy.ViewDistance, Color.red);
+
+                if (hit.transform == enemy.Target)
+                {
+                    return true;
+                }
             }
+        }
+        return false;
+    }
+
+    protected bool EscapeFromTargetIfTooClose()
+    {
+        Vector3 escapePosition;
+        Vector3 targetPosition = enemy.Target.position;
+        Vector3 directionToTarget = targetPosition - enemy.Barrel.position;
+
+        directionToTarget.y = 0;
+
+        if (directionToTarget.magnitude < enemy.SafeDistance)
+        {
+            Vector3 directionAwayFromTarget = -directionToTarget.normalized;
+
+            Vector2 randomPoint = Random.insideUnitCircle * 5f;
+            escapePosition = enemy.Barrel.position + directionAwayFromTarget * enemy.SafeDistance + new Vector3(randomPoint.x, 0, randomPoint.y);
+
+            enemy.NavMeshAgent.SetDestination(escapePosition);
+
+            Debug.DrawLine(enemy.Barrel.position, escapePosition, Color.blue, 1f);
+
+            return true;
         }
         return false;
     }
 
     protected bool IsTargetInSight()
     {
-        Debug.DrawRay(enemy.FireParticles.transform.position, (enemy.FireParticles.transform.position + new Vector3(0, 0, enemy.ViewDistance)) * enemy.ViewDistance, Color.red, 0.1f);
+        Vector3 direction = enemy.FireParticles.transform.forward;
 
-        if (Physics.Raycast(enemy.FireParticles.transform.position, enemy.FireParticles.transform.position + new Vector3(0, 0, enemy.ViewDistance), out RaycastHit hit, enemy.ViewDistance, enemy.TargetMask))
+        if (Physics.Raycast(enemy.FireParticles.transform.position, direction, out RaycastHit hit, enemy.ViewDistance))
         {
+            Debug.DrawRay(enemy.FireParticles.transform.position, direction * enemy.ViewDistance, Color.green, 1f);
+
             if (hit.transform == enemy.Target)
             {
                 return true;
