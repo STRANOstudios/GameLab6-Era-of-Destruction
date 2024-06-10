@@ -58,9 +58,8 @@ public class Enemy1Controller : MonoBehaviour
 
         float speed = (velocityRound - previusVelocity) / Time.deltaTime;
 
-        float rotationAngle = 0f; // Inizializza l'angolo di rotazione
+        float rotationAngle = 0f;
 
-        // Imposta l'angolo di rotazione in base alla velocità
         if (speed > 0)
         {
             rotationAngle = -rotationAmplitude;
@@ -69,13 +68,11 @@ public class Enemy1Controller : MonoBehaviour
         {
             rotationAngle = rotationAmplitude;
         }
-        // Altrimenti, la velocità è 0 e l'angolo di rotazione rimane 0
 
         previusVelocity = velocityRound;
 
         Quaternion targetRotation = Quaternion.Euler(rotationAngle, 0f, 0f);
 
-        // Applica la rotazione locale sull'asse delle x al body
         body.localRotation = Quaternion.Lerp(body.localRotation, targetRotation, 5f * Time.deltaTime);
     }
 
