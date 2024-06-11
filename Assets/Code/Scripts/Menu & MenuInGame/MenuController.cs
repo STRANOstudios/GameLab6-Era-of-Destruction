@@ -11,8 +11,10 @@ public class MenuController : MonoBehaviour
 
     private AudioSource audioSource;
 
-    public delegate void resumeDelegate();
-    public static event resumeDelegate Resume;
+    public delegate void MenuEvent();
+    public static event MenuEvent Resume;
+    public static event MenuEvent Play;
+    public static event MenuEvent Return;
 
     private void Awake()
     {
@@ -28,6 +30,7 @@ public class MenuController : MonoBehaviour
 #else
         SceneManager.LoadScene(1);
 #endif
+        Play?.Invoke();
         Pressed();
     }
 
@@ -48,6 +51,7 @@ public class MenuController : MonoBehaviour
 #else
         SceneManager.LoadScene(0);
 #endif
+        Return?.Invoke();
         Pressed();
     }
 

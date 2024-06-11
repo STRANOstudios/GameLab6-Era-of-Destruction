@@ -1,10 +1,24 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 [DisallowMultipleComponent, RequireComponent(typeof(GameManager))]
 public class GameManager : MonoBehaviour
 {
+    [Header("Debug")]
+    [SerializeField] bool inGame = false;
+
     public static GameManager Instance { get; private set; }
+
+    [Flags]
+    enum State
+    {
+        MENU,
+        INGAME,
+        MENUINGAME
+    }
+
+    private State currentState = State.MENU;
 
     private InputHandler inputHandler;
 
@@ -28,9 +42,8 @@ public class GameManager : MonoBehaviour
 
         #endregion
 
-        // change value for menu
-        Cursor.lockState = isGameInPaused ? CursorLockMode.Locked : CursorLockMode.None;
-        Cursor.visible = isGameInPaused;
+        Cursor.lockState = !inGame ? CursorLockMode.None : CursorLockMode.Locked;
+        Cursor.visible = !inGame;
     }
 
     private void Start()
@@ -40,7 +53,7 @@ public class GameManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (inputHandler.EscapeTrigger && isPressable)
+        if (inputHandler.EscapeTrigger && isPressable && currentState != State.MENU)
         {
             StartCoroutine(Escape());
             PauseGame();
@@ -50,11 +63,15 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         MenuController.Resume += PauseGame;
+        MenuController.Play += StartGame;
+        MenuController.Return += ReturnMenu;
     }
 
     private void OnDisable()
     {
         MenuController.Resume -= PauseGame;
+        MenuController.Play -= StartGame;
+        MenuController.Return -= ReturnMenu;
     }
 
     IEnumerator Escape()
@@ -72,9 +89,30 @@ public class GameManager : MonoBehaviour
         isGameInPaused = !isGameInPaused;
         Time.timeScale = isGameInPaused ? 0 : 1;
 
-        Cursor.lockState = isGameInPaused ? CursorLockMode.Locked : CursorLockMode.None;
+        Cursor.lockState = isGameInPaused ? CursorLockMode.None : CursorLockMode.Locked;
         Cursor.visible = isGameInPaused;
 
+        currentState = isGameInPaused ? State.MENUINGAME : State.INGAME;
+
         isPaused?.Invoke(isGameInPaused);
+    }
+
+    private void StartGame()
+    {
+        currentState = State.INGAME;
+        inGame = true;
+        isGameInPaused = false;
+
+        PauseGame();
+    }
+
+    private void ReturnMenu()
+    {
+        currentState = State.MENU;
+
+        inGame = false;
+        isGameInPaused = false;
+
+        PauseGame();
     }
 }

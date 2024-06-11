@@ -14,7 +14,10 @@ public class BrightnessController : MonoBehaviour
 
     private void Awake()
     {
-        volume = GameObject.Find("Post Processing").GetComponent<Volume>();
+        volume = GameObject.Find("Global Volume").GetComponent<Volume>();
+
+        brightnessSlider.maxValue = 255;
+
         Initialize();
     }
 
