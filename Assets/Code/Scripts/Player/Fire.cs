@@ -1,25 +1,27 @@
+using System;
 using UnityEngine;
 
 public class Fire : MonoBehaviour
 {
-    [Header("References")]
-    [SerializeField] ParticleSystem fire1;
-    [SerializeField] ParticleSystem fire2;
-
     [Header("Settings")]
     [SerializeField, Min(0.1f)] float fire1Ratio = 0.5f;
     [SerializeField, Range(0, 90)] float coneAngle = 30f;
     [SerializeField, Range(0.1f, 2)] float maxDistance = 0.5f;
     [Space]
     [SerializeField, Min(0.1f)] float fire2Ratio = 0.5f;
+    [SerializeField, Min(0f)] float timeLoading = 0.5f;
 
+    [Header("References")]
+    [SerializeField] ParticleSystem fire1;
+    [SerializeField] ParticleSystem fire2;
 
     private InputHandler inputHandler;
 
     private float nextFire1 = 0f;
     private float nextFire2 = 0f;
 
-    public Vector3 test;
+    //public Vector3 test;
+    private float loading;
 
     void Start()
     {
@@ -51,14 +53,23 @@ public class Fire : MonoBehaviour
         }
     }
 
-    void Fire2()
+    void Fire2() // creare caricamento to be testing
     {
         if (!fire2) return;
 
         if (inputHandler.fire2Trigger && Time.time > nextFire2)
         {
-            nextFire2 = Time.time + fire2Ratio;
-            fire2.Play();
+            //if (Time.time - loading >= timeLoading)
+            //{
+                nextFire2 = Time.time + fire2Ratio;
+                fire2.Emit(1);
+
+                //loading = Time.time;
+            //}
         }
+        //else
+        //{
+        //    loading = Time.time;
+        //}
     }
 }
