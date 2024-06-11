@@ -6,14 +6,15 @@ public class Health : MonoBehaviour
 {
     [Header("Settings")]
     [SerializeField, Min(0)] float health = 100f;
-    [SerializeField, Min(0)] float score = 100f;
+    [SerializeField, Min(0)] int score = 100;
+    [SerializeField] LayerMask layerMask;
 
     [Header("References")]
     [SerializeField] ParticleSystem deathVFX;
 
     private float healthBackup;
 
-    public delegate float Score(float score);
+    public delegate void Score(float score);
     public static event Score OnScore;
 
     private void Awake()
@@ -29,9 +30,9 @@ public class Health : MonoBehaviour
 
     private void OnParticleCollision(GameObject other)
     {
-        if (other.layer == 6)
+        if ((layerMask.value & (1 << other.layer)) != 0)
         {
-            TakeDamage(10f);
+            TakeDamage(other.GetComponent<Damage>().GetDamage);
         }
     }
 
@@ -50,7 +51,7 @@ public class Health : MonoBehaviour
 
     IEnumerator Death()
     {
-        OnScore?.Invoke(score);
+        OnScore?.Invoke((float)score);
         if (deathVFX) deathVFX.Play();
 
         GetComponent<Enemy1Controller>().CurrentState = new Death(GetComponent<Enemy1Controller>());

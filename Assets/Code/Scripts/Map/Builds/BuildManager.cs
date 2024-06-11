@@ -5,19 +5,22 @@ using UnityEngine;
 public class BuildManager : MonoBehaviour
 {
     [Header("Settings")]
-    [SerializeField, Min(0.1f)] float health = 100f;
-    [SerializeField, Min(0f)] float score = 100f;
+    [SerializeField, Min(0.1f), Tooltip("health of the build")] float health = 100f;
+    [SerializeField, Min(0), Tooltip("points earned by destroying the palace")] int score = 100;
+    [SerializeField, Min(0f), Tooltip("seconds to add to the timer")] float sec = 10f;
 
-    [SerializeField, Range(0f, 20f)] float timeToBuild = 5f;
+    [SerializeField, Range(0f, 20f), Tooltip("seconds to wait before to build")] float timeToBuild = 5f;
+    [Space]
+    [SerializeField] LayerMask layerMask;
 
     [Header("References")]
     [SerializeField] ParticleSystem destructionParticles;
     [SerializeField] ParticleSystem reconstructionParticles;
 
     [Header("VFX")]
-    [SerializeField, Min(0.1f)] float timeVFXCollapse = 0.5f;
-    [SerializeField, Min(0.1f)] float timeVFXSpawn = 0.5f;
-    [SerializeField, Min(0f)] float collapseSpeed = 1f;
+    [SerializeField, Min(0.1f), Tooltip("time of VFX collapse")] float timeVFXCollapse = 0.5f;
+    [SerializeField, Min(0.1f), Tooltip("time of VFX build")] float timeVFXSpawn = 0.5f;
+    [SerializeField, Min(0f), Tooltip("speed of collapse")] float collapseSpeed = 1f;
 
     [Header("SFX")]
     [SerializeField] AudioClip sfxDestruction;
@@ -30,8 +33,9 @@ public class BuildManager : MonoBehaviour
     private float _startHealth;
     private Vector3 _spawnPosition;
 
-    public delegate float Score(float score);
+    public delegate void Score(float score);
     public static event Score OnScore;
+    public static event Score OnSec;
 
     private void Awake()
     {
@@ -49,9 +53,10 @@ public class BuildManager : MonoBehaviour
 
     private void OnParticleCollision(GameObject other)
     {
-        if (other.layer == 6)
+        if ((layerMask.value & (1 << other.layer)) != 0)
         {
-            health -= 10; // add get damage from player
+            health -= other.GetComponent<Damage>().GetDamage;
+
             if (health <= 0) StartCoroutine(HandleDestructionReconstructionVFX());
         }
     }
@@ -60,7 +65,8 @@ public class BuildManager : MonoBehaviour
     {
         #region destruction
 
-        OnScore?.Invoke(score);
+        OnScore?.Invoke((float)score);
+        OnSec?.Invoke(sec);
 
         if (destructionParticles) destructionParticles.Play();
         if (_audioSource) _audioSource.PlayOneShot(sfxDestruction);

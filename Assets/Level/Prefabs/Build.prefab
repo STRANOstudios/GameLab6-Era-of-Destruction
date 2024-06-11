@@ -4961,11 +4961,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 20
+  score: 100
+  sec: 10
   timeToBuild: 5
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 3072
   destructionParticles: {fileID: 5853878264642871728}
   reconstructionParticles: {fileID: 3764406793674024124}
   timeVFXCollapse: 2
   timeVFXSpawn: 0.5
+  collapseSpeed: 1
   sfxDestruction: {fileID: 8300000, guid: 3765bbc139fd670468b7cef445fbcf49, type: 3}
   sfxReconstruction: {fileID: 8300000, guid: 8a55296bb180186418cd063c054e36e9, type: 3}
 --- !u!82 &4986078921503059570
