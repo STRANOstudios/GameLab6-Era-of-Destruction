@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Fire : MonoBehaviour
+public class ShootingManager : MonoBehaviour
 {
     [Header("Settings")]
     [SerializeField, Min(0.1f)] float fire1Ratio = 0.5f;
@@ -19,13 +19,15 @@ public class Fire : MonoBehaviour
 
     private float nextFire1 = 0f;
     private float nextFire2 = 0f;
-
-    //public Vector3 test;
     private float loading;
+
+    public delegate void FireLoading(float value);
+    public static event FireLoading Fire;
 
     void Start()
     {
         inputHandler = InputHandler.Instance;
+        Fire?.Invoke(timeLoading);
     }
 
     void Update()
@@ -59,17 +61,20 @@ public class Fire : MonoBehaviour
 
         if (inputHandler.fire2Trigger && Time.time > nextFire2)
         {
-            //if (Time.time - loading >= timeLoading)
-            //{
+            Fire?.Invoke(Time.time - loading);
+
+            if (Time.time - loading >= timeLoading)
+            {
                 nextFire2 = Time.time + fire2Ratio;
                 fire2.Emit(1);
 
-                //loading = Time.time;
-            //}
+                loading = Time.time;
+            }
         }
-        //else
-        //{
-        //    loading = Time.time;
-        //}
+        else
+        {
+            loading = Time.time;
+            Fire?.Invoke(0);
+        }
     }
 }
