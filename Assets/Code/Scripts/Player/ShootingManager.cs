@@ -40,7 +40,7 @@ public class ShootingManager : MonoBehaviour
     {
         if (!fire1) return;
 
-        if (inputHandler.fire1Trigger && Time.time > nextFire1)
+        if (inputHandler.Fire1Trigger && Time.time > nextFire1)
         {
             nextFire1 = Time.time + fire1Ratio;
             fire1.Play();
@@ -59,7 +59,7 @@ public class ShootingManager : MonoBehaviour
     {
         if (!fire2) return;
 
-        if (inputHandler.fire2Trigger && Time.time > nextFire2)
+        if (inputHandler.Fire2Trigger && Time.time > nextFire2)
         {
             Fire?.Invoke(Time.time - loading);
 

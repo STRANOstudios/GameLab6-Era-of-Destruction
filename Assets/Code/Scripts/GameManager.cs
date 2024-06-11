@@ -1,13 +1,14 @@
 using System.Collections;
 using UnityEngine;
 
+[DisallowMultipleComponent, RequireComponent(typeof(GameManager))]
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
     private InputHandler inputHandler;
 
-    public static bool isGameInPaused = false;
+    public static bool isGameInPaused = true;
     private bool isPressable = true;
 
     public delegate bool Pause(bool value);
@@ -17,18 +18,18 @@ public class GameManager : MonoBehaviour
     {
         #region Singleton
 
-        if (Instance != null)
+        if (Instance)
         {
-            Destroy(transform.root.gameObject);
+            Destroy(gameObject);
             return;
         }
         Instance = this;
-        DontDestroyOnLoad(transform.root.gameObject);
+        DontDestroyOnLoad(gameObject);
 
         #endregion
 
         // change value for menu
-        Cursor.lockState = isGameInPaused ? CursorLockMode.None : CursorLockMode.Locked;
+        Cursor.lockState = isGameInPaused ? CursorLockMode.Locked : CursorLockMode.None;
         Cursor.visible = isGameInPaused;
     }
 
@@ -39,11 +40,21 @@ public class GameManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (inputHandler.escapeTrigger && isPressable)
+        if (inputHandler.EscapeTrigger && isPressable)
         {
             StartCoroutine(Escape());
             PauseGame();
         }
+    }
+
+    private void OnEnable()
+    {
+        MenuController.Resume += PauseGame;
+    }
+
+    private void OnDisable()
+    {
+        MenuController.Resume -= PauseGame;
     }
 
     IEnumerator Escape()
@@ -61,7 +72,7 @@ public class GameManager : MonoBehaviour
         isGameInPaused = !isGameInPaused;
         Time.timeScale = isGameInPaused ? 0 : 1;
 
-        Cursor.lockState = isGameInPaused ? CursorLockMode.None : CursorLockMode.Locked;
+        Cursor.lockState = isGameInPaused ? CursorLockMode.Locked : CursorLockMode.None;
         Cursor.visible = isGameInPaused;
 
         isPaused?.Invoke(isGameInPaused);

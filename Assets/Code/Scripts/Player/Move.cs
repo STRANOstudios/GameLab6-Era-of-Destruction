@@ -29,18 +29,18 @@ public class Move : MonoBehaviour
 
     void Motion()
     {
-        if (inputHandler.moveInput != Vector2.zero)
+        if (inputHandler.MoveInput != Vector2.zero)
         {
-            Vector3 direction = new Vector3(inputHandler.moveInput.x, 0, inputHandler.moveInput.y);
+            Vector3 direction = new Vector3(inputHandler.MoveInput.x, 0, inputHandler.MoveInput.y);
             transform.Translate(direction * speed * Time.deltaTime);
         }
     }
 
     void Rotation()
     {
-        if (inputHandler.rotateInput != Vector2.zero)
+        if (inputHandler.RotateInput != Vector2.zero)
         {
-            transform.Rotate(Vector3.up, inputHandler.rotateInput.x * rotationSpeed * Time.deltaTime);
+            transform.Rotate(Vector3.up, inputHandler.RotateInput.x * rotationSpeed * Time.deltaTime);
         }
     }
 

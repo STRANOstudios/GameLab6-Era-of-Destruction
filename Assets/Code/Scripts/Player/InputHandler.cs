@@ -27,23 +27,23 @@ public class InputHandler : MonoBehaviour
     private InputAction fire1Action;
     private InputAction fire2Action;
 
-    public bool escapeTrigger { get; private set; }
-    public Vector2 moveInput { get; private set; }
-    public Vector2 rotateInput { get; private set; }
-    public bool fire1Trigger { get; private set; }
-    public bool fire2Trigger { get; private set; }
+    public bool EscapeTrigger { get; private set; }
+    public Vector2 MoveInput { get; private set; }
+    public Vector2 RotateInput { get; private set; }
+    public bool Fire1Trigger { get; private set; }
+    public bool Fire2Trigger { get; private set; }
 
     private void Awake()
     {
         #region Singleton
 
-        if (Instance != null)
+        if (Instance)
         {
-            Destroy(transform.root.gameObject);
+            Destroy(gameObject);
             return;
         }
         Instance = this;
-        DontDestroyOnLoad(transform.root.gameObject);
+        DontDestroyOnLoad(gameObject);
 
         #endregion
 
@@ -59,20 +59,20 @@ public class InputHandler : MonoBehaviour
 
     void RegisterInputActions()
     {
-        escapoeAction.performed += ctx => escapeTrigger = true;
-        escapoeAction.canceled += ctx => escapeTrigger = false;
+        escapoeAction.performed += ctx => EscapeTrigger = true;
+        escapoeAction.canceled += ctx => EscapeTrigger = false;
 
-        moveAction.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
-        moveAction.canceled += ctx => moveInput = Vector2.zero;
+        moveAction.performed += ctx => MoveInput = ctx.ReadValue<Vector2>();
+        moveAction.canceled += ctx => MoveInput = Vector2.zero;
 
-        rotateAction.performed += ctx => rotateInput = ctx.ReadValue<Vector2>();
-        rotateAction.canceled += ctx => rotateInput = Vector2.zero;
+        rotateAction.performed += ctx => RotateInput = ctx.ReadValue<Vector2>();
+        rotateAction.canceled += ctx => RotateInput = Vector2.zero;
 
-        fire1Action.performed += ctx => fire1Trigger = true;
-        fire1Action.canceled += ctx => fire1Trigger = false;
+        fire1Action.performed += ctx => Fire1Trigger = true;
+        fire1Action.canceled += ctx => Fire1Trigger = false;
 
-        fire2Action.performed += ctx => fire2Trigger = true;
-        fire2Action.canceled += ctx => fire2Trigger = false;
+        fire2Action.performed += ctx => Fire2Trigger = true;
+        fire2Action.canceled += ctx => Fire2Trigger = false;
     }
 
     private void OnEnable()
