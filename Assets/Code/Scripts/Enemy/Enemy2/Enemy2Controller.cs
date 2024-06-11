@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[DisallowMultipleComponent]
+[DisallowMultipleComponent, RequireComponent(typeof(AudioSource))]
 public class Enemy2Controller : MonoBehaviour
 {
     [Header("Settings")]
@@ -12,10 +12,20 @@ public class Enemy2Controller : MonoBehaviour
 
     [Header("Refereces")]
     [SerializeField] List<MissileLauncher> missileLauncher = new();
+    [SerializeField] List<ParticleSystem> particleSystems = new();
 
+    [Header("SFX")]
+    [SerializeField] AudioClip explosion;
+
+    private AudioSource _audioSource;
     private Transform target;
     private float timeSinceLastFire = 0f;
     private bool isTargetting = false;
+
+    private void Awake()
+    {
+        _audioSource = GetComponent<AudioSource>();
+    }
 
     private void Start()
     {
@@ -39,6 +49,8 @@ public class Enemy2Controller : MonoBehaviour
             {
                 missile.Shoot(impactDelay);
             }
+
+            StartCoroutine(Fire());
         }
     }
 
@@ -51,5 +63,19 @@ public class Enemy2Controller : MonoBehaviour
         yield return new WaitForSecondsRealtime(impactDelay);
 
         isTargetting = false;
+    }
+
+    IEnumerator Fire()
+    {
+        yield return new WaitForSecondsRealtime(impactDelay);
+
+        foreach (var particleSystem in particleSystems)
+        {
+            particleSystem.Emit(1);
+        }
+
+        yield return new WaitForSecondsRealtime(0.1f);
+
+        if (_audioSource) _audioSource.PlayOneShot(explosion);
     }
 }
