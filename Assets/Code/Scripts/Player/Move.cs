@@ -40,8 +40,7 @@ public class Move : MonoBehaviour
     {
         if (inputHandler.RotateInput != Vector2.zero)
         {
-            transform.Rotate(Vector3.up, inputHandler.RotateInput.x * rotationSpeed * Time.deltaTime);
+            transform.Rotate(Vector3.up, inputHandler.RotateInput.x * rotationSpeed * Time.deltaTime * (MouseSensibility.sensibility * 2));
         }
     }
-
 }

@@ -4,11 +4,12 @@ using UnityEngine.UI;
 [DisallowMultipleComponent]
 public class FullScreenController : MonoBehaviour
 {
-    [SerializeField] private Toggle fullScreenToggle = null;
+    [Header("Reference")]
+    [SerializeField] private Toggle fullScreenToggle;
 
     private void Awake()
     {
-        Initialize();
+        fullScreenToggle.isOn = PlayerPrefs.GetInt("FullScreen", 1) == 1;
     }
 
     private void OnEnable()
@@ -23,13 +24,7 @@ public class FullScreenController : MonoBehaviour
 
     private void SetFullScreen(bool value)
     {
-        Screen.fullScreen = value;
-        PlayerPrefs.SetInt("FullScreen", value ? 0 : 1);
-    }
-
-    public void Initialize()
-    {
-        fullScreenToggle.isOn = PlayerPrefs.GetInt("FullScreen") == 0;
-        Screen.fullScreen = fullScreenToggle.isOn;
+        PlayerPrefs.SetInt("FullScreen", fullScreenToggle.isOn ? 1 : 0);
+        Screen.SetResolution(Screen.width, Screen.height, value);
     }
 }

@@ -1,22 +1,21 @@
-using UnityEngine.Rendering.Universal;
-using UnityEngine.Rendering;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
 [DisallowMultipleComponent]
 public class BrightnessController : MonoBehaviour
 {
-    [SerializeField] private Slider brightnessSlider = null;
+    [Header("References")]
+    [SerializeField] private Slider brightnessSlider;
 
     private ColorAdjustments colorAdjustments;
-    private int _brightnessLevel;
-    private Volume volume = null;
 
-    private void Awake()
+    private void Start()
     {
-        volume = GameObject.Find("Global Volume").GetComponent<Volume>();
+        Volume volume = GameObject.Find("Global Volume").GetComponent<Volume>();
 
-        brightnessSlider.maxValue = 255;
+        if (!volume.profile.TryGet(out colorAdjustments)) return;
 
         Initialize();
     }
@@ -26,17 +25,16 @@ public class BrightnessController : MonoBehaviour
         brightnessSlider.onValueChanged.AddListener(SetBrightness);
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         brightnessSlider.onValueChanged.RemoveListener(SetBrightness);
     }
 
     private void SetBrightness(float value)
     {
-        _brightnessLevel = (int)value;
-        PlayerPrefs.SetInt("Brightness", _brightnessLevel);
+        PlayerPrefs.SetFloat("Brightness", value);
 
-        if (!volume.profile.TryGet(out colorAdjustments)) return;
+        int _brightnessLevel = (int)Mathf.Lerp(0, 255, value);
 
         Color newColor = new(_brightnessLevel / 255f, _brightnessLevel / 255f, _brightnessLevel / 255f, 1);
         colorAdjustments.colorFilter.Override(newColor);
@@ -44,7 +42,7 @@ public class BrightnessController : MonoBehaviour
 
     public void Initialize()
     {
-        brightnessSlider.value = PlayerPrefs.GetInt("Brightness") == 0 ? 211 : PlayerPrefs.GetInt("Brightness");
+        brightnessSlider.value = PlayerPrefs.GetFloat("Brightness", 0.75f);
         SetBrightness(brightnessSlider.value);
     }
 }

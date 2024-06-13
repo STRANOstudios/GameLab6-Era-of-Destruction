@@ -2,17 +2,21 @@ using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
 
-[CustomEditor(typeof(GraphicsSettings))]
+[CustomEditor(typeof(MenuOptions))]
 public class GraphicsSettingsEditor : Editor
 {
-    private List<System.Type> componentTypes = new List<System.Type> {
+    private readonly List<System.Type> componentTypes = new()
+    {
         typeof(BrightnessController),
         typeof(ResolutionController),
         typeof(FullScreenController),
-        typeof(ColorBlindnessController)
+        typeof(ColorBlindnessController),
+        typeof(MixerController),
+        typeof(MouseSensibility),
+        typeof(InvertY)
     };
 
-    private List<System.Type> addedComponents = new List<System.Type>();
+    private List<System.Type> addedComponents = new();
 
     private void OnEnable()
     {
@@ -29,7 +33,7 @@ public class GraphicsSettingsEditor : Editor
     {
         addedComponents.Clear();
 
-        var settings = (GraphicsSettings)target;
+        var settings = (MenuOptions)target;
         var components = settings.GetComponents<Component>();
 
         foreach (var component in components)
@@ -63,7 +67,7 @@ public class GraphicsSettingsEditor : Editor
 
     private void AddComponent(System.Type componentType)
     {
-        var settings = (GraphicsSettings)target;
+        var settings = (MenuOptions)target;
 
         // Add the selected component to the script
         var newComponent = settings.gameObject.AddComponent(componentType);
