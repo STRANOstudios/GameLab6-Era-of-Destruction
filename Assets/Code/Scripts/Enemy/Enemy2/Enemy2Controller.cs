@@ -76,6 +76,6 @@ public class Enemy2Controller : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(0.1f);
 
-        if (_audioSource) _audioSource.PlayOneShot(explosion);
+        if (explosion) _audioSource.PlayOneShot(explosion);
     }
 }

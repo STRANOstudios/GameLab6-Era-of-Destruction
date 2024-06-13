@@ -37,13 +37,13 @@ public class InputHandler : MonoBehaviour
     {
         #region Singleton
 
-        if (Instance)
-        {
-            Destroy(gameObject);
-            return;
-        }
+        //if (Instance)
+        //{
+        //    Destroy(gameObject);
+        //    return;
+        //}
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
 
         #endregion
 
