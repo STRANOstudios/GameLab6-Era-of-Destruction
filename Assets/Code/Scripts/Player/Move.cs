@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [DisallowMultipleComponent]
@@ -10,6 +11,8 @@ public class Move : MonoBehaviour
     private InputHandler inputHandler;
 
     public static Move Instance { get; private set; }
+
+    public static Action OnMove;
 
     private void Awake()
     {
@@ -31,8 +34,10 @@ public class Move : MonoBehaviour
     {
         if (inputHandler.MoveInput != Vector2.zero)
         {
-            Vector3 direction = new Vector3(inputHandler.MoveInput.x, 0, inputHandler.MoveInput.y);
-            transform.Translate(direction * speed * Time.deltaTime);
+            Vector3 direction = new(inputHandler.MoveInput.x, 0, inputHandler.MoveInput.y);
+            transform.Translate(speed * Time.deltaTime * direction);
+
+            OnMove?.Invoke();
         }
     }
 

@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 [DisallowMultipleComponent, RequireComponent(typeof(GameManager))]
 public class GameManager : MonoBehaviour

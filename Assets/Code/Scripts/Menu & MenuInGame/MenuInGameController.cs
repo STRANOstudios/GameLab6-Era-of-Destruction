@@ -17,6 +17,12 @@ public class MenuInGameController : MonoBehaviour
 
     private void MenuEnable(bool value)
     {
+        if (!menuInGameCanvas)
+        {
+            Debug.LogWarning("MenuInGameCanvas not assigned");
+            return;
+        }
+
         menuInGameCanvas.enabled = value;
     }
 }

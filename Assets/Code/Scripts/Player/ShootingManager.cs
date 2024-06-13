@@ -5,8 +5,6 @@ public class ShootingManager : MonoBehaviour
 {
     [Header("Settings")]
     [SerializeField, Min(0.1f)] float fire1Ratio = 0.5f;
-    [SerializeField, Range(0, 90)] float coneAngle = 30f;
-    [SerializeField, Range(0.1f, 2)] float maxDistance = 0.5f;
     [Space]
     [SerializeField, Min(0.1f)] float fire2Ratio = 0.5f;
     [SerializeField, Min(0f)] float timeLoading = 0.5f;
@@ -36,7 +34,19 @@ public class ShootingManager : MonoBehaviour
         Fire2();
     }
 
-    void Fire1() // Check
+    private void OnEnable()
+    {
+        HealthManager.HealthValue += OnHitDetected;
+        Move.OnMove += ResetLoding;
+    }
+
+    private void OnDisable()
+    {
+        HealthManager.HealthValue -= OnHitDetected;
+        Move.OnMove += ResetLoding;
+    }
+
+    void Fire1()
     {
         if (!fire1) return;
 
@@ -44,14 +54,6 @@ public class ShootingManager : MonoBehaviour
         {
             nextFire1 = Time.time + fire1Ratio;
             fire1.Play();
-
-            Vector3 coneDirection = transform.forward + Vector3.up;
-
-            RaycastHit[] hits = Physics.SphereCastAll(transform.position + Vector3.up, 0.5f, coneDirection, maxDistance);
-            foreach (RaycastHit hit in hits)
-            {
-                if (hit.collider.gameObject.layer != 6) break;
-            }
         }
     }
 
@@ -73,8 +75,18 @@ public class ShootingManager : MonoBehaviour
         }
         else
         {
-            loading = Time.time;
-            Fire?.Invoke(0);
+            ResetLoding();
         }
+    }
+
+    private void OnHitDetected(float value = 0f)
+    {
+        ResetLoding();
+    }
+
+    private void ResetLoding()
+    {
+        loading = Time.time;
+        Fire?.Invoke(0);
     }
 }

@@ -11,7 +11,7 @@ public class HealthManager : MonoBehaviour
     public delegate void HealthListener(float health);
     public static event HealthListener HealthValue;
 
-    public Action playerDeath;
+    public static Action playerDeath;
 
     private void Start()
     {

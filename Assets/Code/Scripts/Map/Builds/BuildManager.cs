@@ -69,7 +69,7 @@ public class BuildManager : MonoBehaviour
         OnSec?.Invoke(sec);
 
         if (destructionParticles) destructionParticles.Play();
-        if (_audioSource) _audioSource.PlayOneShot(sfxDestruction);
+        if (_audioSource && sfxDestruction) _audioSource.PlayOneShot(sfxDestruction);
 
         StartCoroutine(Collapse(collapseSpeed));
         StartCoroutine(FadeInOut(timeVFXCollapse));
@@ -90,7 +90,7 @@ public class BuildManager : MonoBehaviour
         _mesh.position = _spawnPosition;
 
         if (reconstructionParticles) reconstructionParticles.Play();
-        if (_audioSource) _audioSource.PlayOneShot(sfxReconstruction);
+        if (_audioSource && sfxReconstruction) _audioSource.PlayOneShot(sfxReconstruction);
 
         if (_collider) _collider.enabled = true;
         if (_mesh) _mesh.gameObject.SetActive(true);

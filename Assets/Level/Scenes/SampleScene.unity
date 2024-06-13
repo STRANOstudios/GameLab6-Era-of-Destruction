@@ -10591,10 +10591,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fire1Ratio: 0.5
-  coneAngle: 30
-  maxDistance: 2
   fire2Ratio: 0.5
-  timeLoading: 0.5
+  timeLoading: 3
   fire1: {fileID: 53443871}
   fire2: {fileID: 1198779676}
 --- !u!54 &860339496
