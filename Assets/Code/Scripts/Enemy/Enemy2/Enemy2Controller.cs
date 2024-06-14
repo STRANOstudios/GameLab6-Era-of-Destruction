@@ -14,6 +14,9 @@ public class Enemy2Controller : MonoBehaviour
     [SerializeField] List<MissileLauncher> missileLauncher = new();
     [SerializeField] List<ParticleSystem> particleSystems = new();
 
+    [Header("VFX")]
+    [SerializeField] Transform body;
+
     [Header("SFX")]
     [SerializeField] AudioClip explosion;
 
@@ -39,35 +42,37 @@ public class Enemy2Controller : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, new(target.position.x, transform.position.y, target.position.z), speed * Time.deltaTime);
         }
 
-        if (Time.time - timeSinceLastFire > fireRatio + impactDelay)
+        if (Time.time - timeSinceLastFire > fireRatio + impactDelay) // rifarlo meglio
         {
-            StartCoroutine(Shoot());
-
             timeSinceLastFire = Time.time;
+            isTargetting = true;
 
+            // VFX
             foreach (var missile in missileLauncher)
             {
-                missile.Shoot(impactDelay);
+                missile.Shoot(fireRatio);
             }
 
-            StartCoroutine(Fire());
+            StartCoroutine(Targeting(impactDelay + (fireRatio * 0.7f)));
+
+            StartCoroutine(Shooting(impactDelay));
         }
     }
 
-    IEnumerator Shoot()
+    IEnumerator Targeting(float delay = 0f)
     {
-        yield return new WaitForSecondsRealtime(impactDelay / 3f);
+        if (body) body.gameObject.SetActive(true);
 
-        isTargetting = true;
+        yield return new WaitForSecondsRealtime(delay);
 
-        yield return new WaitForSecondsRealtime(impactDelay);
+        if (body) body.gameObject.SetActive(false);
 
         isTargetting = false;
     }
 
-    IEnumerator Fire()
+    IEnumerator Shooting(float delay = 0f)
     {
-        yield return new WaitForSecondsRealtime(impactDelay);
+        yield return new WaitForSecondsRealtime(delay);
 
         foreach (var particleSystem in particleSystems)
         {
@@ -76,6 +81,6 @@ public class Enemy2Controller : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(0.1f);
 
-        if (explosion) _audioSource.PlayOneShot(explosion);
+        if (_audioSource && explosion) _audioSource.PlayOneShot(explosion);
     }
 }

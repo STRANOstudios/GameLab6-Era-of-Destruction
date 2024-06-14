@@ -24,37 +24,45 @@ public class MissileLauncher : MonoBehaviour
         StartCoroutine(LauncherCycle(time - (time / 4)));
     }
 
-    IEnumerator LauncherCycle(float time)
+    IEnumerator LauncherCycle(float delay) // rifare il metodo in modo corretto
     {
-        // Targeting
-        Quaternion targetRotation = Quaternion.Euler(0f, 0f, -90f);
-        float rotationSpeed = 5f;
+        // Reload 20%
+        missile.SetPositionAndRotation(position, Quaternion.Euler(0f, 0f, 0f));
 
-        while (Quaternion.Angle(missile.rotation, targetRotation) > 0.1f)
-        {
-            missile.rotation = Quaternion.RotateTowards(missile.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-            yield return null;
-        }
+        yield return new WaitForSecondsRealtime(delay * 0.2f);
 
-        // Launch
-        exhaustFlames.Play();
+        // Targeting 50%
+        Quaternion initialRotation = missile.rotation; // Rotazione iniziale del missile
+        Quaternion targetRotation = Quaternion.Euler(0f, 0f, -90f); // Rotazione di -90 gradi rispetto all'asse z
 
-        Vector3 launchPosition = new (missile.position.x, 20f, missile.position.z);
-
+        float targetingTime = delay * 0.5f; // Time
         float elapsedTime = 0f;
-        while (elapsedTime < time / 3)
+
+        while (elapsedTime < targetingTime)
         {
-            missile.transform.position = Vector3.Lerp(missile.position, launchPosition, speed * Time.deltaTime);
+            float rotationProgress = elapsedTime / targetingTime; // Calcolo del progresso della rotazione
+            missile.rotation = Quaternion.Lerp(initialRotation, targetRotation, rotationProgress); // Interpolazione lineare tra la rotazione iniziale e quella target
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        yield return new WaitForSeconds(time / 6);
+        missile.rotation = targetRotation;
 
-        // Reload
+        // Launch 30%
+        exhaustFlames.Play();
+        float launchTime = delay * 0.3f; // Tempo di lancio
+        elapsedTime = 0f;
+
+        while (elapsedTime < launchTime)
+        {
+            missile.position += speed * Time.deltaTime * Vector3.up; // Spostamento del missile verso l'alto a velocità costante
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
         exhaustFlames.Stop();
-        missile.SetPositionAndRotation(position, Quaternion.Euler(0f, 0f, 0f));
     }
+
 
     public Transform Missile => missile;
     public ParticleSystem ExhaustFlames => exhaustFlames;
