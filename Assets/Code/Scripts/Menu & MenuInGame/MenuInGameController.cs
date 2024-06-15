@@ -23,6 +23,6 @@ public class MenuInGameController : MonoBehaviour
             return;
         }
 
-        menuInGameCanvas.enabled = value;
+        menuInGameCanvas.gameObject.SetActive(value);
     }
 }
