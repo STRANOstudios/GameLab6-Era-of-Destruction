@@ -1,17 +1,18 @@
-using System;
 using UnityEngine;
 
+[DisallowMultipleComponent]
 public class ShootingManager : MonoBehaviour
 {
     [Header("Settings")]
-    [SerializeField, Min(0.1f)] float fire1Ratio = 0.5f;
+    [SerializeField, Min(0.1f), Tooltip("Is the ratio of first attack")] float fire1Ratio = 0.5f;
     [Space]
-    [SerializeField, Min(0.1f)] float fire2Ratio = 0.5f;
-    [SerializeField, Min(0f)] float timeLoading = 0.5f;
+    [SerializeField, Min(0.1f), Tooltip("Is the ratio of second attack")] float fire2Ratio = 0.5f;
+    [SerializeField, Min(0f), Tooltip("Is the time to load second attack")] float timeLoading = 0.5f;
 
     [Header("References")]
-    [SerializeField] ParticleSystem fire1;
-    [SerializeField] ParticleSystem fire2;
+    [SerializeField, Tooltip("First attack")] ParticleSystem fire1;
+    [SerializeField, Tooltip("Second attack")] ParticleSystem fire2;
+    [SerializeField, Tooltip("VFX while loading second attack")] ParticleSystem loadingVFX;
 
     private InputHandler inputHandler;
 
@@ -48,7 +49,11 @@ public class ShootingManager : MonoBehaviour
 
     void Fire1()
     {
-        if (!fire1) return;
+        if (!fire1)
+        {
+            Debug.LogWarning("No fire 1 particle system found");
+            return;
+        }
 
         if (inputHandler.Fire1Trigger && Time.time > nextFire1)
         {
@@ -59,14 +64,22 @@ public class ShootingManager : MonoBehaviour
 
     void Fire2() // creare caricamento to be testing
     {
-        if (!fire2) return;
+        if (!fire2)
+        {
+            Debug.LogWarning("No fire 2 particle system found");
+            return;
+        }
 
         if (inputHandler.Fire2Trigger && Time.time > nextFire2)
         {
+            if (loadingVFX && !loadingVFX.isPlaying) loadingVFX.Play();
+
             Fire?.Invoke(Time.time - loading);
 
             if (Time.time - loading >= timeLoading)
             {
+                if (loadingVFX) loadingVFX.Stop();
+
                 nextFire2 = Time.time + fire2Ratio;
                 fire2.Emit(1);
 
@@ -86,6 +99,8 @@ public class ShootingManager : MonoBehaviour
 
     private void ResetLoding()
     {
+        if (loadingVFX) loadingVFX.Stop();
+
         loading = Time.time;
         Fire?.Invoke(0);
     }
