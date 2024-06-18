@@ -4969,6 +4969,7 @@ MonoBehaviour:
     m_Bits: 3072
   destructionParticles: {fileID: 5853878264642871728}
   reconstructionParticles: {fileID: 3764406793674024124}
+  rubbleMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
   timeVFXCollapse: 2
   timeVFXSpawn: 0.5
   collapseSpeed: 1

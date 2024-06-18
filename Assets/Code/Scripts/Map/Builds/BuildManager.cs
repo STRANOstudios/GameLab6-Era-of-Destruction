@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.AI.Navigation;
 using UnityEngine;
 
 [DisallowMultipleComponent, RequireComponent(typeof(Collider))]
@@ -18,6 +19,7 @@ public class BuildManager : MonoBehaviour
     [SerializeField] ParticleSystem reconstructionParticles;
 
     [Header("VFX")]
+    [SerializeField, Tooltip("mesh of the build after collapse")] Mesh rubbleMesh;
     [SerializeField, Min(0.1f), Tooltip("time of VFX collapse")] float timeVFXCollapse = 0.5f;
     [SerializeField, Min(0.1f), Tooltip("time of VFX build")] float timeVFXSpawn = 0.5f;
     [SerializeField, Min(0f), Tooltip("speed of collapse")] float collapseSpeed = 1f;
@@ -28,7 +30,9 @@ public class BuildManager : MonoBehaviour
 
     private Collider _collider;
     private Material material;
-    private Transform _mesh;
+    private Transform _transformMesh;
+    private Mesh defaultMesh;
+    private MeshFilter meshFilter;
     private AudioSource _audioSource;
     private float _startHealth;
     private Vector3 _spawnPosition;
@@ -37,18 +41,33 @@ public class BuildManager : MonoBehaviour
     public static event Score OnScore;
     public static event Score OnSec;
 
+#if UNITY_EDITOR
+
+    private void OnValidate()
+    {
+        if (!destructionParticles) Debug.LogWarning("destructionParticles not assigned");
+        if (!reconstructionParticles) Debug.LogWarning("reconstructionParticles not assigned");
+        if (!rubbleMesh) Debug.LogWarning("rubbleMesh not assigned");
+        if (!sfxDestruction) Debug.LogWarning("sfxDestruction not assigned");
+        if (!sfxReconstruction) Debug.LogWarning("sfxReconstruction not assigned");
+    }
+
+#endif
+
     private void Awake()
     {
         _collider = GetComponent<Collider>();
         _audioSource = GetComponent<AudioSource>();
         _startHealth = health;
         _spawnPosition = transform.position;
+        meshFilter = GetComponentInChildren<MeshFilter>();
+        defaultMesh = meshFilter.sharedMesh;
     }
 
     private void Start()
     {
         material = GetComponentInChildren<MeshRenderer>().material;
-        _mesh = transform.GetChild(0);
+        _transformMesh = transform.GetChild(0);
     }
 
     private void OnParticleCollision(GameObject other)
@@ -79,7 +98,10 @@ public class BuildManager : MonoBehaviour
         yield return new WaitForSeconds(timeVFXCollapse);
 
         if (destructionParticles) destructionParticles.Stop();
-        if (_mesh) _mesh.gameObject.SetActive(false);
+
+        ChangeFade(255f);
+        ChangeMesh(rubbleMesh);
+        _transformMesh.position = _spawnPosition;
 
         #endregion
 
@@ -87,13 +109,13 @@ public class BuildManager : MonoBehaviour
 
         #region reconstruction
 
-        _mesh.position = _spawnPosition;
-
         if (reconstructionParticles) reconstructionParticles.Play();
         if (_audioSource && sfxReconstruction) _audioSource.PlayOneShot(sfxReconstruction);
 
         if (_collider) _collider.enabled = true;
-        if (_mesh) _mesh.gameObject.SetActive(true);
+
+        ChangeMesh(defaultMesh);
+        ChangeFade(0f);
 
         // Fade In
         yield return StartCoroutine(FadeInOut(timeVFXSpawn));
@@ -103,6 +125,19 @@ public class BuildManager : MonoBehaviour
         health = _startHealth;
 
         #endregion
+    }
+
+    private void ChangeMesh(Mesh mesh)
+    {
+        meshFilter.sharedMesh = mesh;
+        //GetComponentInChildren<NavMeshSurface>().BuildNavMesh();
+    }
+
+    private void ChangeFade(float alpha)
+    {
+        Color newColor = material.color;
+        newColor.a = alpha;
+        material.color = newColor;
     }
 
     private IEnumerator FadeInOut(float duration)
@@ -126,7 +161,7 @@ public class BuildManager : MonoBehaviour
         float colliderSize = gameObject.GetComponent<Collider>().bounds.size.y;
 
         float duration = colliderSize / speed;
-        float startY = _mesh.position.y;
+        float startY = _transformMesh.position.y;
         float targetY = startY - colliderSize;
         float elapsed = 0f;
 
@@ -135,7 +170,7 @@ public class BuildManager : MonoBehaviour
             elapsed += Time.deltaTime;
             float t = elapsed / duration;
             float y = Mathf.Lerp(startY, targetY, t);
-            _mesh.position = new Vector3(_spawnPosition.x, y, _spawnPosition.z);
+            _transformMesh.position = new Vector3(_spawnPosition.x, y, _spawnPosition.z);
             yield return null;
         }
     }
