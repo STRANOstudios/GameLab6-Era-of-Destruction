@@ -5,18 +5,27 @@ public class PauseManager : MonoBehaviour
 {
     public static bool isGameInPaused = false;
 
+    public PauseState currentState = PauseState.PAUSEABLE;
+
+    public enum PauseState
+    {
+        PAUSEABLE,
+        NOTPAUSEABLE
+    }
+
     public delegate void Pause(bool value);
     public static event Pause IsPaused;
 
     private void Awake()
     {
+        Time.timeScale = 1;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && currentState == PauseState.PAUSEABLE)
         {
             PauseGame();
         }
@@ -25,11 +34,13 @@ public class PauseManager : MonoBehaviour
     private void OnEnable()
     {
         MenuController.Resume += PauseGame;
+        LoseController.GameOver += GameOver;
     }
 
     private void OnDisable()
     {
         MenuController.Resume -= PauseGame;
+        LoseController.GameOver -= GameOver;
     }
 
     /// <summary>
@@ -44,6 +55,17 @@ public class PauseManager : MonoBehaviour
         Cursor.visible = isGameInPaused;
 
         IsPaused?.Invoke(isGameInPaused);
+    }
+
+    public void GameOver()
+    {
+        currentState = PauseState.NOTPAUSEABLE;
+
+        isGameInPaused = true;
+        Time.timeScale = 0;
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
 }

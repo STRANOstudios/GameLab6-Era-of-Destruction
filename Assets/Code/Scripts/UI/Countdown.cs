@@ -9,7 +9,7 @@ public class Countdown : MonoBehaviour, IUIElements
     public float totalTime = 60f;
     private float timeRemaining;
 
-    private Action TimeIsFinish;
+    public static Action TimeIsFinish;
 
     private void Awake()
     {

@@ -66,5 +66,15 @@ public class MenuController : MonoBehaviour
         if (audioSource && sfxClick) audioSource.PlayOneShot(sfxClick);
     }
 
+    public void PlayAgain()
+    {
+#if UNITY_EDITOR
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+#else
+        SceneManager.LoadScene(1);
+#endif
+        Pressed();
+    }
+
     #endregion
 }

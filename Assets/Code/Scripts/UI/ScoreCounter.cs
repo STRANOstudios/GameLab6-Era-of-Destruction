@@ -29,4 +29,6 @@ public class ScoreCounter : MonoBehaviour, IUIElements
         _scoreValue += value;
         _score.text = "" + _scoreValue;
     }
+
+    public float GetScore => _scoreValue;
 }
