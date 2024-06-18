@@ -1,4 +1,3 @@
-using System.Runtime.CompilerServices;
 using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
@@ -7,9 +6,12 @@ using UnityEngine.AI;
 public class Spawner : MonoBehaviour
 {
     [Header("Settings")]
-    [SerializeField, Range(0f,10f), Tooltip("the curve for the spawn delay")] AnimationCurve spawnDelayCurve;
+    [SerializeField, Tooltip("the curve for the spawn delay")] AnimationCurve spawnDelayCurve;
+    [SerializeField, Min(0), Tooltip("the duration of the gameplay")] float gameplayDuration = 1.0f;
+    [SerializeField, Min(0), Tooltip("the spawn interval in seconds")] float spawnInterval = 1.0f;
     [SerializeField, Min(0)] float spawnRadius = 1.0f; // Radius for raycast to check for obstacles
     [SerializeField, Tooltip("the layer on which the object will be not spawned")] LayerMask obstacleLayer;
+    [SerializeField, Min(0), Tooltip("the tolerance for the raycast")] float tolerance = 0.5f;
 
     [Header("References")]
     [SerializeField] GameObject objectToSpawn;
@@ -17,41 +19,35 @@ public class Spawner : MonoBehaviour
     [SerializeField, Tooltip("the surface on which the object will be spawned")] NavMeshSurface navMeshSurface;
     [SerializeField] Camera mainCamera;
 
-    void Start()
+    private float spawnDelay = 0.0f;
+
+    private void OnValidate()
     {
-        bool isAllSetted = true;
+        if (!defaultSpawnPosition) Debug.LogWarning("DefaultSpawnPosition not assigned");
+        if (!objectToSpawn) Debug.LogWarning("ObjectToSpawn not assigned");
+        if (!navMeshSurface) Debug.LogWarning("NavMeshSurface not assigned");
+        if (!mainCamera) Debug.LogWarning("MainCamera not assigned");
+    }
 
-        if (!defaultSpawnPosition)
+    void Update()
+    {
+        if (Time.time > spawnDelay)
         {
-            Debug.LogWarning("DefaultSpawnPosition not assigned");
-            isAllSetted = false;
+            spawnDelay = Time.time + spawnInterval * spawnDelayCurve.Evaluate(Time.time / gameplayDuration);
+            Spawn();
         }
+    }
 
-        if (!objectToSpawn)
+    void Spawn(int amount = 1)
+    {
+        for (int attempt = 0; attempt < amount; attempt++)
         {
-            Debug.LogWarning("ObjectToSpawn not assigned");
-            isAllSetted = false;
-        }
-
-        if (!navMeshSurface)
-        {
-            Debug.LogWarning("NavMeshSurface not assigned");
-            isAllSetted = false;
-        }
-
-        if (!mainCamera)
-        {
-            Debug.LogWarning("MainCamera not assigned");
-            isAllSetted = false;
-        }
-
-        if (!isAllSetted) return;
-
-        Vector3 spawnPosition = GetValidSpawnPoint();
-        if (spawnPosition != Vector3.zero)
-        {
-            //Instantiate(objectToSpawn, spawnPosition, Quaternion.identity);
-            ObjectPoolerManager.SpawnObject(objectToSpawn, spawnPosition, Quaternion.identity);
+            Vector3 spawnPosition = GetValidSpawnPoint();
+            if (spawnPosition != Vector3.zero)
+            {
+                //Instantiate(objectToSpawn, spawnPosition, Quaternion.identity);
+                ObjectPoolerManager.SpawnObject(objectToSpawn, spawnPosition, Quaternion.identity);
+            }
         }
     }
 
@@ -84,21 +80,20 @@ public class Spawner : MonoBehaviour
         return Vector3.zero;
     }
 
-    bool IsVisibleFrom(Vector3 point, Camera camera)
+    bool IsVisibleFrom(Vector3 point, Camera camera) // to be bugfixed
     {
         Vector3 viewportPoint = camera.WorldToViewportPoint(point);
+
         if (viewportPoint.x >= 0 && viewportPoint.x <= 1 && viewportPoint.y >= 0 && viewportPoint.y <= 1 && viewportPoint.z > 0)
         {
             Ray ray = new(camera.transform.position, point - camera.transform.position);
+            RaycastHit[] hits = Physics.RaycastAll(ray, (point - camera.transform.position).magnitude);
+
             Debug.DrawRay(camera.transform.position, point - camera.transform.position, Color.cyan, 5.0f); // Draw ray from camera to point
-            if (Physics.Raycast(ray, out RaycastHit hit))
-            {
-                if (hit.transform.position == point)
-                {
-                    return true;
-                }
-            }
+
+            return !(hits.Length > 0);
         }
+
         return false;
     }
 

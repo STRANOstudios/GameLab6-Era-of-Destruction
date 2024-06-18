@@ -28,6 +28,9 @@ public class Enemy1Controller : MonoBehaviour
     [SerializeField] AudioClip sfxMove;
     [SerializeField] AudioClip sfxFire;
 
+    [Header("Debug")]
+    [SerializeField] bool debug = true;
+
     private State currentState;
     private Transform target;
     private NavMeshAgent agent;
@@ -112,6 +115,8 @@ public class Enemy1Controller : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        if (debug) return;
+
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, viewDistance);
 
