@@ -21,6 +21,8 @@ public class Spawner : MonoBehaviour
 
     private float spawnDelay = 0.0f;
 
+#if UNITY_EDITOR
+
     private void OnValidate()
     {
         if (!defaultSpawnPosition) Debug.LogWarning("DefaultSpawnPosition not assigned");
@@ -28,6 +30,8 @@ public class Spawner : MonoBehaviour
         if (!navMeshSurface) Debug.LogWarning("NavMeshSurface not assigned");
         if (!mainCamera) Debug.LogWarning("MainCamera not assigned");
     }
+
+#endif
 
     void Update()
     {
