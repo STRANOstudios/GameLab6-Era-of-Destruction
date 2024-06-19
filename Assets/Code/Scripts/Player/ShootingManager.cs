@@ -81,7 +81,10 @@ public class ShootingManager : MonoBehaviour
                 if (loadingVFX) loadingVFX.Stop();
 
                 nextFire2 = Time.time + fire2Ratio;
-                fire2.Emit(1);
+                //fire2.Emit(1);
+
+                fire2.Stop();
+                fire2.Play();
 
                 loading = Time.time;
             }
