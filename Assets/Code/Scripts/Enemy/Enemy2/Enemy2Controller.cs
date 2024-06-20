@@ -32,7 +32,7 @@ public class Enemy2Controller : MonoBehaviour
 
     private void Start()
     {
-        target = Move.Instance.transform;
+        target = MoveNightmare.Instance.transform;
     }
 
     private void Update()

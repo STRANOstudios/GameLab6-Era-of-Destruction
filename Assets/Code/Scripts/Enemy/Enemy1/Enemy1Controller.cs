@@ -40,7 +40,7 @@ public class Enemy1Controller : MonoBehaviour
 
     private void Start()
     {
-        target = Move.Instance.transform;
+        target = MoveNightmare.Instance.transform;
         agent = GetComponent<NavMeshAgent>();
         currentState = new Idle(this);
     }
