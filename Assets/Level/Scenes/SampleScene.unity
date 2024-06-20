@@ -30823,7 +30823,7 @@ PrefabInstance:
     - target: {fileID: 7990292424867005352, guid: fc30c7f63ac67b24d9e7ec84bd98c1f6,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8038998387892335313, guid: fc30c7f63ac67b24d9e7ec84bd98c1f6,
         type: 3}
@@ -34263,7 +34263,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &798728640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35358,7 +35358,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09d681ab29b83ed4993653a7b3bf0bfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 200
   layerMask:
     serializedVersion: 2
     m_Bits: 640
@@ -46899,7 +46899,7 @@ GameObject:
   - component: {fileID: 1091599988}
   - component: {fileID: 1091599987}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47031,7 +47031,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1117447247}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.048047695, y: 0.0000000021483135, z: -1.0334089e-10, w: 0.99884504}
+  m_LocalRotation: {x: 0.048047695, y: -0.0000000021483135, z: 1.0334089e-10, w: 0.99884504}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
