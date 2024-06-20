@@ -7,6 +7,9 @@ public class PauseManager : MonoBehaviour
 
     public PauseState currentState = PauseState.PAUSEABLE;
 
+    [Header("Debug")]
+    public bool isDebug = false;
+
     public enum PauseState
     {
         PAUSEABLE,
@@ -18,6 +21,8 @@ public class PauseManager : MonoBehaviour
 
     private void Awake()
     {
+        if (isDebug) return;
+
         Time.timeScale = 1;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -51,8 +56,11 @@ public class PauseManager : MonoBehaviour
         isGameInPaused = !isGameInPaused;
         Time.timeScale = isGameInPaused ? 0 : 1;
 
-        Cursor.lockState = isGameInPaused ? CursorLockMode.None : CursorLockMode.Locked;
-        Cursor.visible = isGameInPaused;
+        if (!isDebug)
+        {
+            Cursor.lockState = isGameInPaused ? CursorLockMode.None : CursorLockMode.Locked;
+            Cursor.visible = isGameInPaused;
+        }
 
         IsPaused?.Invoke(isGameInPaused);
     }
@@ -63,6 +71,8 @@ public class PauseManager : MonoBehaviour
 
         isGameInPaused = true;
         Time.timeScale = 0;
+
+        if (isDebug) return;
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
