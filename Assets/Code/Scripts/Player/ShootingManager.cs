@@ -44,7 +44,7 @@ public class ShootingManager : MonoBehaviour
     private void OnDisable()
     {
         HealthManager.HealthValue -= OnHitDetected;
-        Move.OnMove += ResetLoding;
+        Move.OnMove -= ResetLoding;
     }
 
     void Fire1()
