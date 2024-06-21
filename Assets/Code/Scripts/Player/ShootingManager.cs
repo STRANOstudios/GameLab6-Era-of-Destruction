@@ -30,6 +30,8 @@ public class ShootingManager : MonoBehaviour
 
     public delegate void FireLoading(float value);
     public static event FireLoading Fire;
+    public static event FireLoading Load1;
+    public static event FireLoading Load2;
 
 #if UNITY_EDITOR
 
@@ -85,6 +87,8 @@ public class ShootingManager : MonoBehaviour
             return;
         }
 
+        Load1?.Invoke(Time.time - nextFire1);
+
         if (inputHandler.Fire1Trigger && Time.time > nextFire1)
         {
             nextFire1 = Time.time + fire1Ratio;
@@ -94,13 +98,15 @@ public class ShootingManager : MonoBehaviour
         }
     }
 
-    void Fire2() // creare caricamento to be testing
+    void Fire2()
     {
         if (!fire2)
         {
             Debug.LogWarning("No fire 2 particle system found");
             return;
         }
+
+        Load2?.Invoke(Time.time - nextFire2);
 
         if (inputHandler.Fire2Trigger && Time.time > nextFire2)
         {
