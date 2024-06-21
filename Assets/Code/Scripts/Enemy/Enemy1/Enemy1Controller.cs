@@ -13,7 +13,7 @@ public class Enemy1Controller : MonoBehaviour
     [SerializeField] LayerMask targetMask;
 
     [Header("References")]
-    [SerializeField] ParticleSystem fireParticles;
+    [SerializeField, Tooltip("system of particles to be used as a projectile")] ParticleSystem fireParticles;
     [Space]
     [SerializeField] Transform body;
     [SerializeField] Transform turret;
@@ -37,6 +37,21 @@ public class Enemy1Controller : MonoBehaviour
 
     private float timeSinceLastFire = 0f;
     private float previusVelocity = 0f;
+
+#if UNITY_EDITOR
+
+    private void OnValidate()
+    {
+        if (targetMask == 0) Debug.LogWarning("targetMask not setted");
+        if (!body) Debug.LogWarning("body not assigned");
+        if (!turret) Debug.LogWarning("turret not assigned");
+        if (!barrel) Debug.LogWarning("barrel not assigned");
+
+        // VFX
+        if (!fireParticles) Debug.LogWarning("fireParticles not assigned");
+    }
+
+#endif
 
     private void Start()
     {

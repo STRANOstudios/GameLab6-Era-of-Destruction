@@ -45,9 +45,12 @@ public class BuildManager : MonoBehaviour
 
     private void OnValidate()
     {
+        // VFX
         if (!destructionParticles) Debug.LogWarning("destructionParticles not assigned");
         if (!reconstructionParticles) Debug.LogWarning("reconstructionParticles not assigned");
         if (!rubbleMesh) Debug.LogWarning("rubbleMesh not assigned");
+
+        // SFX
         if (!sfxDestruction) Debug.LogWarning("sfxDestruction not assigned");
         if (!sfxReconstruction) Debug.LogWarning("sfxReconstruction not assigned");
     }

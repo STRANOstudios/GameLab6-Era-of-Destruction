@@ -10,22 +10,48 @@ public class Health : MonoBehaviour
     [SerializeField] LayerMask layerMask;
 
     [Header("References")]
-    [SerializeField] ParticleSystem deathVFX;
+    [SerializeField] GameObject defaultMesh;
+    [SerializeField] GameObject rubbleMesh;
+
+    [Header("VFX")]
+    [SerializeField, Tooltip("VFX explosion")] ParticleSystem deathVFX;
+
+    [Header("SFX")]
+    [SerializeField, Tooltip("SFX explosion")] AudioClip explosionSFX;
 
     private float healthBackup;
+
+    private AudioSource audioSource;
 
     public delegate void Score(float score);
     public static event Score OnScore;
 
+#if UNITY_EDITOR
+
+    private void OnValidate()
+    {
+        // VFX
+        if (!deathVFX) Debug.LogWarning("deathVFX not assigned");
+        if (!defaultMesh) Debug.LogWarning("defaultMesh not assigned");
+        if (!rubbleMesh) Debug.LogWarning("rubbleMesh not assigned");
+
+        // SFX
+        if (!explosionSFX) Debug.LogWarning("explosion not assigned");
+    }
+
+#endif
+
     private void Awake()
     {
         healthBackup = health;
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void OnEnable()
     {
         health = healthBackup;
         GetComponent<Collider>().enabled = true;
+        ChangeMesh(true);
     }
 
     private void OnParticleCollision(GameObject other)
@@ -53,12 +79,25 @@ public class Health : MonoBehaviour
     {
         OnScore?.Invoke((float)score);
         if (deathVFX) deathVFX.Play();
+        if (audioSource && explosionSFX) audioSource.PlayOneShot(explosionSFX);
+
+        ChangeMesh(false);
 
         GetComponent<Enemy1Controller>().CurrentState = new Death(GetComponent<Enemy1Controller>());
         GetComponent<Collider>().enabled = false;
 
         yield return new WaitUntil(() => !deathVFX.isPlaying);
         gameObject.SetActive(false);
+    }
+
+    /// <summary>
+    /// Change the mesh
+    /// </summary>
+    /// <param name="value"></param>
+    private void ChangeMesh(bool value)
+    {
+        if (defaultMesh) defaultMesh.SetActive(value);
+        if (rubbleMesh) rubbleMesh.SetActive(!value);
     }
 }
 

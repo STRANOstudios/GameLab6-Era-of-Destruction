@@ -6,9 +6,10 @@ using UnityEngine;
 public class Enemy2Controller : MonoBehaviour
 {
     [Header("Settings")]
-    [SerializeField, Min(0f)] float speed = 1f;
-    [SerializeField, Min(0f)] float impactDelay = 1f;
-    [SerializeField, Min(0f)] float fireRatio = 1f;
+    [SerializeField, Min(0), Tooltip("Delay before start")] float startDelay = 0f;
+    [SerializeField, Min(0f), Tooltip("Tracking speed")] float speed = 1f;
+    [SerializeField, Min(0f), Tooltip("Delay before impact")] float impactDelay = 1f;
+    [SerializeField, Min(0f), Tooltip("Ratio of time between each shot")] float fireRatio = 1f;
 
     [Header("Refereces")]
     [SerializeField] List<MissileLauncher> missileLauncher = new();
@@ -25,6 +26,16 @@ public class Enemy2Controller : MonoBehaviour
     private float timeSinceLastFire = 0f;
     private bool isTargetting = false;
 
+#if UNITY_EDITOR
+
+    private void OnValidate()
+    {
+        if (particleSystems.Count <= 0) Debug.LogWarning("particleSystems not assigned");
+        if (!body) Debug.LogWarning("body not assigned");
+    }
+
+#endif
+
     private void Awake()
     {
         _audioSource = GetComponent<AudioSource>();
@@ -37,12 +48,14 @@ public class Enemy2Controller : MonoBehaviour
 
     private void Update()
     {
+        if (Time.time < startDelay) return;
+
         if (!isTargetting)
         {
             transform.position = Vector3.MoveTowards(transform.position, new(target.position.x, transform.position.y, target.position.z), speed * Time.deltaTime);
         }
 
-        if (Time.time - timeSinceLastFire > fireRatio + impactDelay) // rifarlo meglio
+        if (Time.time - timeSinceLastFire > fireRatio + impactDelay)
         {
             timeSinceLastFire = Time.time;
             isTargetting = true;

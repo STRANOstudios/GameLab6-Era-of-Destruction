@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[DisallowMultipleComponent]
+[DisallowMultipleComponent, RequireComponent(typeof(AudioSource))]
 public class ShootingManager : MonoBehaviour
 {
     [Header("Settings")]
@@ -12,9 +12,17 @@ public class ShootingManager : MonoBehaviour
     [Header("References")]
     [SerializeField, Tooltip("First attack")] ParticleSystem fire1;
     [SerializeField, Tooltip("Second attack")] ParticleSystem fire2;
+
+    [Header("VFX")]
     [SerializeField, Tooltip("VFX while loading second attack")] ParticleSystem loadingVFX;
 
+    [Header("SFX")]
+    [SerializeField, Tooltip("SFX first attack")] AudioClip fire1SFX;
+    [SerializeField, Tooltip("SFX second attack")] AudioClip fire2SFX;
+    [SerializeField, Tooltip("SFX while loading second attack")] AudioClip loadingSFX;
+
     private InputHandler inputHandler;
+    private AudioSource audioSource;
 
     private float nextFire1 = 0f;
     private float nextFire2 = 0f;
@@ -22,6 +30,28 @@ public class ShootingManager : MonoBehaviour
 
     public delegate void FireLoading(float value);
     public static event FireLoading Fire;
+
+#if UNITY_EDITOR
+
+    private void OnValidate()
+    {
+        // VFX
+        if (!fire1) Debug.LogWarning("fire1 not assigned");
+        if (!fire2) Debug.LogWarning("fire2 not assigned");
+        if (!loadingVFX) Debug.LogWarning("loadingVFX not assigned");
+        
+        // SFX
+        if (!fire1SFX) Debug.LogWarning("fire1SFX not assigned");
+        if (!fire2SFX) Debug.LogWarning("fire2SFX not assigned");
+        if (!loadingSFX) Debug.LogWarning("loadingSFX not assigned");
+    }
+
+#endif
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     void Start()
     {
@@ -59,6 +89,8 @@ public class ShootingManager : MonoBehaviour
         {
             nextFire1 = Time.time + fire1Ratio;
             fire1.Play();
+
+            if (audioSource && fire1SFX) audioSource.PlayOneShot(fire1SFX);
         }
     }
 
@@ -73,6 +105,11 @@ public class ShootingManager : MonoBehaviour
         if (inputHandler.Fire2Trigger && Time.time > nextFire2)
         {
             if (loadingVFX && !loadingVFX.isPlaying) loadingVFX.Play();
+            if (audioSource && loadingSFX && !audioSource.isPlaying)
+            {
+                audioSource.clip = loadingSFX;
+                audioSource.Play();
+            }
 
             Fire?.Invoke(Time.time - loading);
 
@@ -85,6 +122,8 @@ public class ShootingManager : MonoBehaviour
 
                 fire2.Stop();
                 fire2.Play();
+
+                if (audioSource && fire2SFX) audioSource.PlayOneShot(fire2SFX);
 
                 loading = Time.time;
             }
@@ -106,5 +145,6 @@ public class ShootingManager : MonoBehaviour
 
         loading = Time.time;
         Fire?.Invoke(0);
+        audioSource.Stop();
     }
 }

@@ -7,10 +7,15 @@ public class HealthManager : MonoBehaviour
 {
     [Header("Settings")]
     [SerializeField, Min(1f)] float health = 100f;
-    [SerializeField] LayerMask layerMask;
+    [SerializeField, Tooltip("Layer mask of objects that harm us")] LayerMask layerMask;
 
-    [Header("References")]
-    [SerializeField] ParticleSystem VFXDamage;
+    [Header("VFX")]
+    [SerializeField, Tooltip("VFX of damage taken")] ParticleSystem VFXDamage;
+
+    [Header("SFX")]
+    [SerializeField, Tooltip("SFX of damage taken")] AudioClip damageSFX;
+
+    private AudioSource audioSource;
 
     public delegate void HealthListener(float health);
     public static event HealthListener HealthValue;
@@ -21,10 +26,21 @@ public class HealthManager : MonoBehaviour
 
     private void OnValidate()
     {
+        if(layerMask == 0) Debug.LogWarning("layerMask not assigned");
+
+        // VFX
         if (!VFXDamage) Debug.LogWarning("VFXDamage not assigned");
+
+        // SFX
+        if (!damageSFX) Debug.LogWarning("damageSFX not assigned");
     }
 
 #endif
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     private void Start()
     {
@@ -35,10 +51,15 @@ public class HealthManager : MonoBehaviour
     {
         if ((layerMask.value & (1 << other.layer)) != 0)
         {
+            if (audioSource && damageSFX) audioSource.PlayOneShot(damageSFX);
+
             health -= other.GetComponent<Damage>().GetDamage;
 
-            VFXDamage.Stop();
-            VFXDamage.Play();
+            if (VFXDamage)
+            {
+                VFXDamage.Stop();
+                VFXDamage.Play();
+            }
 
             HealthValue?.Invoke(health); // Update UI
 

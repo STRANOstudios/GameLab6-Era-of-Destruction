@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class Spawner : MonoBehaviour
 {
     [Header("Settings")]
+    [SerializeField, Min(0), Tooltip("the start delay in seconds")] float startDelay = 0.0f;
     [SerializeField, Tooltip("the curve for the spawn delay")] AnimationCurve spawnDelayCurve;
     [SerializeField, Min(0), Tooltip("the duration of the gameplay")] float gameplayDuration = 1.0f;
     [SerializeField, Min(0), Tooltip("the spawn interval in seconds")] float spawnInterval = 1.0f;
@@ -35,7 +36,7 @@ public class Spawner : MonoBehaviour
 
     void Update()
     {
-        if (Time.time > spawnDelay)
+        if (Time.time > spawnDelay && Time.time > startDelay)
         {
             spawnDelay = Time.time + spawnInterval * spawnDelayCurve.Evaluate(Time.time / gameplayDuration);
             Spawn();
