@@ -43,7 +43,8 @@ public class Enemy2Controller : MonoBehaviour
 
     private void Start()
     {
-        target = Move.Instance.transform;
+        //target = Move.Instance.transform;
+        target = GameObject.Find("Player").transform;
     }
 
     private void Update()

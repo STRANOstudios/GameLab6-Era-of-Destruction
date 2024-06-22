@@ -34309,7 +34309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5b39c5a2bf71794182f872cd8822926, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startDelay: 0
+  startDelay: 5
   spawnDelayCurve:
     serializedVersion: 2
     m_Curve:
@@ -35373,6 +35373,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 640
   VFXDamage: {fileID: 1219671028}
+  damageSFX: {fileID: 0}
 --- !u!82 &860339498
 AudioSource:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -55,7 +56,8 @@ public class Enemy1Controller : MonoBehaviour
 
     private void Start()
     {
-        target = Move.Instance.transform;
+        //target = Move.Instance.transform;
+        target = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
         currentState = new Idle(this);
     }
