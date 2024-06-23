@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-internal class Searching : State
+﻿internal class Searching : State
 {
     public Searching(Enemy1Controller gameObject) : base(gameObject)
     {

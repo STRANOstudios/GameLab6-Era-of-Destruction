@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-public class Idle : State
+﻿public class Idle : State
 {
     public Idle(Enemy1Controller gameObject) : base(gameObject)
     {
