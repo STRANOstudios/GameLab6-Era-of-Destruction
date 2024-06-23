@@ -14974,8 +14974,8 @@ MonoBehaviour:
   turret: {fileID: 658634362457891167}
   barrel: {fileID: 2611015244573771854}
   rotationAmplitude: 10
-  sfxMove: {fileID: 0}
-  sfxFire: {fileID: 0}
+  sfxMove: {fileID: 8300000, guid: 1aa5feb635bedd74fb4b630738edabac, type: 3}
+  sfxFire: {fileID: 8300000, guid: 922f1e86fbcd9214a9b6b532d271e741, type: 3}
   debug: 1
 --- !u!114 &6884923556007914263
 MonoBehaviour:
@@ -14997,7 +14997,7 @@ MonoBehaviour:
   defaultMesh: {fileID: 0}
   rubbleMesh: {fileID: 0}
   deathVFX: {fileID: 8724453570936070559}
-  explosionSFX: {fileID: 0}
+  explosionSFX: {fileID: 8300000, guid: a0a2842a06fdbb440b10f57dc29798a0, type: 3}
 --- !u!195 &7626100331011911884
 NavMeshAgent:
   m_ObjectHideFlags: 0

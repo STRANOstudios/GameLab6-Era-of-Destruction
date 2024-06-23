@@ -7864,7 +7864,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToBeLoad: SampleScene
-  sfxClick: {fileID: 0}
+  sfxClick: {fileID: 8300000, guid: 2548a623560cd954691971e4a654f6f0, type: 3}
 --- !u!82 &1550473065
 AudioSource:
   m_ObjectHideFlags: 0
