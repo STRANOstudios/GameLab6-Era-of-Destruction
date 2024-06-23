@@ -4961,9 +4961,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 20
-  score: 100
+  score: 750
   sec: 10
-  timeToBuild: 5
+  timeToBuild: 20
   layerMask:
     serializedVersion: 2
     m_Bits: 3072

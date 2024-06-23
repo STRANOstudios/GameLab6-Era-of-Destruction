@@ -5542,7 +5542,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79181cf70eb39dd4882e1d264343924a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  damage: 10
 --- !u!1001 &57419493
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35331,7 +35331,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89743f58eaa310e469c1051a702fb394, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fire1Ratio: 0.5
+  fire1Ratio: 1
   fire2Ratio: 5
   timeLoading: 3
   fire1: {fileID: 53443871}
@@ -35379,7 +35379,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09d681ab29b83ed4993653a7b3bf0bfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 200
+  health: 1000
   layerMask:
     serializedVersion: 2
     m_Bits: 640
