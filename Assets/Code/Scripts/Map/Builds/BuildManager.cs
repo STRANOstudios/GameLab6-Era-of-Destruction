@@ -102,8 +102,8 @@ public class BuildManager : MonoBehaviour
 
         if (destructionParticles) destructionParticles.Stop();
 
-        ChangeFade(255f);
-        ChangeMesh(rubbleMesh);
+        //ChangeFade(255f);
+        //ChangeMesh(rubbleMesh);
         _transformMesh.position = _spawnPosition;
 
         #endregion
@@ -117,8 +117,8 @@ public class BuildManager : MonoBehaviour
 
         if (_collider) _collider.enabled = true;
 
-        ChangeMesh(defaultMesh);
-        ChangeFade(0f);
+        //ChangeMesh(defaultMesh);
+        //ChangeFade(0f);
 
         // Fade In
         yield return StartCoroutine(FadeInOut(timeVFXSpawn));
