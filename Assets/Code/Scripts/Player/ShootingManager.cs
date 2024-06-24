@@ -94,7 +94,7 @@ public class ShootingManager : MonoBehaviour
             nextFire1 = Time.time + fire1Ratio;
             fire1.Play();
 
-            if (audioSource && fire1SFX) audioSource.PlayOneShot(fire1SFX);
+            if (audioSource && fire1SFX && !audioSource.isPlaying) audioSource.PlayOneShot(fire1SFX);
         }
     }
 
