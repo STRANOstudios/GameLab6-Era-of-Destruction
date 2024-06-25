@@ -21,9 +21,10 @@ public class PauseManager : MonoBehaviour
 
     private void Awake()
     {
+        Time.timeScale = 1;
+
         if (isDebug) return;
 
-        Time.timeScale = 1;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }

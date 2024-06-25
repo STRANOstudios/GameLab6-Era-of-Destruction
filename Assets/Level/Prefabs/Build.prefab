@@ -4963,7 +4963,7 @@ MonoBehaviour:
   health: 20
   score: 100
   sec: 10
-  height: 6.5
+  height: 7
   timeToBuild: 5
   layerMask:
     serializedVersion: 2

@@ -38,7 +38,7 @@ public class UILoseController : MonoBehaviour
 
     private void GameOver()
     {
-        time.text = "Time: " + (Time.realtimeSinceStartup - timer).ToString("F2");
-        score.text = "Score: " + scoreCounter.GetScore;
+        time.text = (Time.realtimeSinceStartup - timer).ToString("F2");
+        score.text = scoreCounter.GetScore.ToString();
     }
 }
