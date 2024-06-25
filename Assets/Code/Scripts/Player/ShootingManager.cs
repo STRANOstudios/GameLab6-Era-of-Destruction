@@ -61,6 +61,8 @@ public class ShootingManager : MonoBehaviour
     {
         inputHandler = InputHandler.Instance;
         Fire?.Invoke(timeLoading);
+        Load1?.Invoke(fire1Ratio);
+        Load2?.Invoke(fire2Ratio);
         isSetted = true;
     }
 
@@ -92,7 +94,7 @@ public class ShootingManager : MonoBehaviour
             return;
         }
 
-        Load1?.Invoke(Time.time - nextFire1);
+        Load1?.Invoke(Time.time - (nextFire1 - fire1Ratio));
 
         if (inputHandler.Fire1Trigger && Time.time > nextFire1)
         {
@@ -110,11 +112,13 @@ public class ShootingManager : MonoBehaviour
             Debug.LogWarning("No fire 2 particle system found");
             return;
         }
-        Load2?.Invoke(Time.time - nextFire2);
+
+        Load2?.Invoke(Time.time - (nextFire2 - fire2Ratio));
 
         if (inputHandler.Fire2Trigger && Time.time > nextFire2)
         {
             if (loadingVFX && !loadingVFX.isPlaying) loadingVFX.Play();
+
             if (audioSource && loadingSFX && !audioSource.isPlaying)
             {
                 audioSource.clip = loadingSFX;
