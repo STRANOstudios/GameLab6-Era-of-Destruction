@@ -28,6 +28,8 @@ public class ShootingManager : MonoBehaviour
     private float nextFire2 = 0f;
     private float loading;
 
+    private bool isSetted = false;
+
     public delegate void FireLoading(float value);
     public static event FireLoading Fire;
     public static event FireLoading Load1;
@@ -59,6 +61,7 @@ public class ShootingManager : MonoBehaviour
     {
         inputHandler = InputHandler.Instance;
         Fire?.Invoke(timeLoading);
+        isSetted = true;
     }
 
     void Update()
@@ -71,12 +74,14 @@ public class ShootingManager : MonoBehaviour
     {
         HealthManager.HealthValue += OnHitDetected;
         Move.OnMove += ResetLoding;
+        MoveNightmare.OnMove += ResetLoding;
     }
 
     private void OnDisable()
     {
         HealthManager.HealthValue -= OnHitDetected;
         Move.OnMove -= ResetLoding;
+        MoveNightmare.OnMove -= ResetLoding;
     }
 
     void Fire1()
@@ -105,7 +110,6 @@ public class ShootingManager : MonoBehaviour
             Debug.LogWarning("No fire 2 particle system found");
             return;
         }
-
         Load2?.Invoke(Time.time - nextFire2);
 
         if (inputHandler.Fire2Trigger && Time.time > nextFire2)
@@ -147,6 +151,8 @@ public class ShootingManager : MonoBehaviour
 
     private void ResetLoding()
     {
+        if (!isSetted) return;
+
         if (loadingVFX) loadingVFX.Stop();
 
         loading = Time.time;

@@ -106,7 +106,6 @@ public class BuildManager : MonoBehaviour
 
         //ChangeFade(255f);
         //ChangeMesh(rubbleMesh);
-        _transformMesh.position = _spawnPosition;
 
         #endregion
 
@@ -126,6 +125,8 @@ public class BuildManager : MonoBehaviour
         yield return StartCoroutine(FadeInOut(timeVFXSpawn));
 
         if (reconstructionParticles) reconstructionParticles.Stop();
+
+        _transformMesh.position = _spawnPosition;
 
         health = _startHealth;
 
