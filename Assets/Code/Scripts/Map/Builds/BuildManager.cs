@@ -9,6 +9,8 @@ public class BuildManager : MonoBehaviour
     [SerializeField, Min(0.1f), Tooltip("health of the build")] float health = 100f;
     [SerializeField, Min(0), Tooltip("points earned by destroying the palace")] int score = 100;
     [SerializeField, Min(0f), Tooltip("seconds to add to the timer")] float sec = 10f;
+    [Space]
+    [SerializeField, Min(0f), Tooltip("height of the build")] float height = 1f;
 
     [SerializeField, Range(0f, 20f), Tooltip("seconds to wait before to build")] float timeToBuild = 5f;
     [Space]
@@ -161,11 +163,9 @@ public class BuildManager : MonoBehaviour
 
     private IEnumerator Collapse(float speed)
     {
-        float colliderSize = gameObject.GetComponent<Collider>().bounds.size.y;
-
-        float duration = colliderSize / speed;
+        float duration = height / speed;
         float startY = _transformMesh.position.y;
-        float targetY = startY - colliderSize;
+        float targetY = startY - height;
         float elapsed = 0f;
 
         while (elapsed < duration)
