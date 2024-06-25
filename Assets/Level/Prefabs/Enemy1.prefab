@@ -4908,7 +4908,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79181cf70eb39dd4882e1d264343924a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 30
 --- !u!1 &3385930895940289378
 GameObject:
   m_ObjectHideFlags: 0
@@ -14974,8 +14974,8 @@ MonoBehaviour:
   turret: {fileID: 658634362457891167}
   barrel: {fileID: 2611015244573771854}
   rotationAmplitude: 10
-  sfxMove: {fileID: 0}
-  sfxFire: {fileID: 0}
+  sfxMove: {fileID: 8300000, guid: 1aa5feb635bedd74fb4b630738edabac, type: 3}
+  sfxFire: {fileID: 8300000, guid: 922f1e86fbcd9214a9b6b532d271e741, type: 3}
   debug: 1
 --- !u!114 &6884923556007914263
 MonoBehaviour:
@@ -14989,12 +14989,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b083d2ca2961534197eb84fa5f9a460, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 20
-  score: 100
+  health: 5
+  score: 150
   layerMask:
     serializedVersion: 2
     m_Bits: 3072
+  defaultMesh: {fileID: 0}
+  rubbleMesh: {fileID: 0}
   deathVFX: {fileID: 8724453570936070559}
+  explosionSFX: {fileID: 8300000, guid: a0a2842a06fdbb440b10f57dc29798a0, type: 3}
 --- !u!195 &7626100331011911884
 NavMeshAgent:
   m_ObjectHideFlags: 0

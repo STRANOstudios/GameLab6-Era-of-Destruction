@@ -5542,7 +5542,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79181cf70eb39dd4882e1d264343924a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  damage: 10
 --- !u!1001 &57419493
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35331,15 +35331,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89743f58eaa310e469c1051a702fb394, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fire1Ratio: 0.5
+  fire1Ratio: 1
   fire2Ratio: 5
   timeLoading: 3
   fire1: {fileID: 53443871}
   fire2: {fileID: 1198779676}
   loadingVFX: {fileID: 1455412731}
-  fire1SFX: {fileID: 0}
-  fire2SFX: {fileID: 0}
-  loadingSFX: {fileID: 0}
+  fire1SFX: {fileID: 8300000, guid: 49c69ec55209f5d41b30a9bc5cabceb7, type: 3}
+  fire2SFX: {fileID: 8300000, guid: 33d306848819929459092883c134e9d6, type: 3}
+  loadingSFX: {fileID: 8300000, guid: a1f58c03c037a3d41bc912e7ff09c705, type: 3}
 --- !u!54 &860339496
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -35379,12 +35379,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09d681ab29b83ed4993653a7b3bf0bfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 200
+  health: 1000
   layerMask:
     serializedVersion: 2
     m_Bits: 640
   VFXDamage: {fileID: 1219671028}
-  damageSFX: {fileID: 0}
+  damageSFX: {fileID: 8300000, guid: 9e8eb9d96ef092a4094c4a3ca5cd94df, type: 3}
 --- !u!82 &860339498
 AudioSource:
   m_ObjectHideFlags: 0
@@ -63648,7 +63648,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 71423178261988417, guid: 558bba7c00cd8a943b92933cbd430e97,
     type: 2}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: d0bb8fa5af278f2449bfa02a81446622, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
