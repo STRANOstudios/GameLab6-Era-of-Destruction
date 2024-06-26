@@ -86,13 +86,27 @@ These steps should allow you to copy a Unity project from GitHub, set it up in U
 
 ## Contributing
 ### Game Designer
+- Alessandro Torbinio
+- Altea Melfa
+- Marco Forloni
+- Matteo Ligoratti
 
 ### Programmer
 - Andrea Frigerio
 
 ### Concept Artist
+- Dimitri Marone
+- Giulia Tartaglia
+- Sara Pavan
+- Tiziano Savino
 
 ### 3D Artist
+- Gianluca Lavanga
+- Greta Buzzacarin
+- Lorenzo Blanco
+- Marie Antoinette
+- Sebastian Kahler
+- Shanes Jae Tabisaura
 
 ## License
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
