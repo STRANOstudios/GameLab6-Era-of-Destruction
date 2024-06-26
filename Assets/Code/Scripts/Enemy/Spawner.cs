@@ -10,9 +10,10 @@ public class Spawner : MonoBehaviour
     [SerializeField, Tooltip("the curve for the spawn delay")] AnimationCurve spawnDelayCurve;
     [SerializeField, Min(0), Tooltip("the duration of the gameplay")] float gameplayDuration = 1.0f;
     [SerializeField, Min(0), Tooltip("the spawn interval in seconds")] float spawnInterval = 1.0f;
+    [Space]
     [SerializeField, Min(0)] float spawnRadius = 1.0f; // Radius for raycast to check for obstacles
-    [SerializeField, Tooltip("the layer on which the object will be not spawned")] LayerMask obstacleLayer;
     [SerializeField, Min(0), Tooltip("the tolerance for the raycast")] float tolerance = 0.5f;
+    [SerializeField, Min(0), Tooltip("the area for the raycast")] float spawnArea = 10;
 
     [Header("References")]
     [SerializeField] GameObject objectToSpawn;
@@ -47,12 +48,7 @@ public class Spawner : MonoBehaviour
     {
         for (int attempt = 0; attempt < amount; attempt++)
         {
-            Vector3 spawnPosition = GetValidSpawnPoint();
-            if (spawnPosition != Vector3.zero)
-            {
-                //Instantiate(objectToSpawn, spawnPosition, Quaternion.identity);
-                ObjectPoolerManager.SpawnObject(objectToSpawn, spawnPosition, Quaternion.identity);
-            }
+            ObjectPoolerManager.SpawnObject(objectToSpawn, GetValidSpawnPoint(), Quaternion.identity);
         }
     }
 
@@ -72,16 +68,16 @@ public class Spawner : MonoBehaviour
 
     Vector3 GetRandomPointOnNavMesh()
     {
-        Vector3 randomPoint = new(
-            Random.Range(navMeshSurface.transform.position.x - navMeshSurface.size.x / 2, navMeshSurface.transform.position.x + navMeshSurface.size.x / 2),
-            navMeshSurface.transform.position.y,
-            Random.Range(navMeshSurface.transform.position.z - navMeshSurface.size.z / 2, navMeshSurface.transform.position.z + navMeshSurface.size.z / 2)
-        );
+        Vector3 randomPoint = Random.insideUnitSphere * spawnArea;
+        randomPoint += navMeshSurface.transform.position;
 
-        if (NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, 1.0f, NavMesh.AllAreas))
+        Debug.DrawRay(randomPoint, Vector3.up, Color.red, 5.0f);
+
+        if (NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, tolerance, NavMesh.AllAreas))
         {
             return hit.position;
         }
+
         return Vector3.zero;
     }
 
@@ -104,8 +100,10 @@ public class Spawner : MonoBehaviour
 
     bool IsObstructed(Vector3 point)
     {
-        Collider[] hitColliders = Physics.OverlapSphere(point, spawnRadius, obstacleLayer);
+        Collider[] hitColliders = Physics.OverlapSphere(point, spawnRadius, navMeshSurface.gameObject.layer);
+
         Debug.DrawRay(point, Vector3.up * 2, Color.green, 5.0f); // Draw ray at the spawn position
+
         foreach (var hitCollider in hitColliders)
         {
             if (hitCollider.gameObject == objectToSpawn)
@@ -114,5 +112,11 @@ public class Spawner : MonoBehaviour
             }
         }
         return false;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(navMeshSurface.transform.position, spawnArea);
     }
 }

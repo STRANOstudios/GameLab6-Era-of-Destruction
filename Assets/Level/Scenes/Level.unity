@@ -804,12 +804,12 @@ PrefabInstance:
     - target: {fileID: 8344372312152541002, guid: c984aa46c32222b4c85304982fb6118e,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000020547754
+      value: 0.00000002054775
       objectReference: {fileID: 0}
     - target: {fileID: 8344372312152541002, guid: c984aa46c32222b4c85304982fb6118e,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000000015618054
+      value: -0.000000015618049
       objectReference: {fileID: 0}
     - target: {fileID: 8344372312152541002, guid: c984aa46c32222b4c85304982fb6118e,
         type: 3}
@@ -872,7 +872,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 130, y: 130}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &155616303
 MonoBehaviour:
@@ -896,7 +896,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: -1918387155, guid: ac72c77a7ceb12045ad7248355016fbd, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -17216,7 +17216,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.6051265, y: 0.000000020547754, z: -0.000000015618054, w: 0.79612935}
+  m_LocalRotation: {x: 0.6051265, y: 0.00000002054775, z: -0.000000015618049, w: 0.79612935}
   m_LocalPosition: {x: 14.05, y: 24, z: 9.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -24733,7 +24733,7 @@ PrefabInstance:
     - target: {fileID: 7990292424867005352, guid: fc30c7f63ac67b24d9e7ec84bd98c1f6,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8038998387892335313, guid: fc30c7f63ac67b24d9e7ec84bd98c1f6,
         type: 3}
@@ -25413,6 +25413,11 @@ PrefabInstance:
         type: 3}
       propertyPath: fire1Ratio
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1301940146797019245, guid: 7c66e981d6c1bb3478cc66e9a0d8ab0e,
+        type: 3}
+      propertyPath: moveWithTransform
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3124856744410876769, guid: 7c66e981d6c1bb3478cc66e9a0d8ab0e,
         type: 3}
@@ -27270,7 +27275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5b39c5a2bf71794182f872cd8822926, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startDelay: 5
+  startDelay: 0
   spawnDelayCurve:
     serializedVersion: 2
     m_Curve:
@@ -27298,10 +27303,8 @@ MonoBehaviour:
   gameplayDuration: 60
   spawnInterval: 5
   spawnRadius: 1
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 1
   tolerance: 0.5
+  spawnArea: 80
   objectToSpawn: {fileID: 6492164114307830612, guid: 3dde8643bfb1a4f41bae0cef848997ee,
     type: 3}
   defaultSpawnPosition: {fileID: 1928741208}
@@ -52197,7 +52200,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 130, y: 130}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1538545913
 MonoBehaviour:
@@ -52221,7 +52224,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: -1737145381, guid: ac72c77a7ceb12045ad7248355016fbd, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -70657,7 +70660,7 @@ Transform:
   m_GameObject: {fileID: 1928741207}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -29, y: 4.25, z: 2.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
