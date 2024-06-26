@@ -804,12 +804,12 @@ PrefabInstance:
     - target: {fileID: 8344372312152541002, guid: c984aa46c32222b4c85304982fb6118e,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.00000002054775
+      value: -0.00000002054775
       objectReference: {fileID: 0}
     - target: {fileID: 8344372312152541002, guid: c984aa46c32222b4c85304982fb6118e,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000000015618049
+      value: 0.000000015618049
       objectReference: {fileID: 0}
     - target: {fileID: 8344372312152541002, guid: c984aa46c32222b4c85304982fb6118e,
         type: 3}
@@ -17216,7 +17216,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.6051265, y: 0.00000002054775, z: -0.000000015618049, w: 0.79612935}
+  m_LocalRotation: {x: 0.6051265, y: -0.00000002054775, z: 0.000000015618049, w: 0.79612935}
   m_LocalPosition: {x: 14.05, y: 24, z: 9.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -18521,7 +18521,7 @@ Light:
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
-  m_ColorTemperature: 5000
+  m_ColorTemperature: 3858
   m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
