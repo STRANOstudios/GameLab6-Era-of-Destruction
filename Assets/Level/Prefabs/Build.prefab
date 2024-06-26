@@ -4974,8 +4974,8 @@ MonoBehaviour:
   timeVFXCollapse: 2
   timeVFXSpawn: 0.5
   collapseSpeed: 1.5
-  sfxDestruction: {fileID: 8300000, guid: 3765bbc139fd670468b7cef445fbcf49, type: 3}
-  sfxReconstruction: {fileID: 8300000, guid: 8a55296bb180186418cd063c054e36e9, type: 3}
+  sfxDestruction: {fileID: 8300000, guid: 4b28de5121a69664d8d1a1fdb1849e43, type: 3}
+  sfxReconstruction: {fileID: 8300000, guid: dc48ba485cd827b4bb64e61b200a00c6, type: 3}
 --- !u!82 &4986078921503059570
 AudioSource:
   m_ObjectHideFlags: 0
