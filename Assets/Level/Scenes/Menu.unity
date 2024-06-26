@@ -850,12 +850,12 @@ MonoBehaviour:
 
     Giulia Tartaglia
 
-    Marie Antoinette (Rigolli?)
+    Riccardo Rigolli
 
-    Sara
-    Pavan
+    Sara Pavan
 
-    Shanes Jae Tabisaura
+    Shanes
+    Jae Tabisaura
 
     Tiziano Savino'
   m_isRightToLeft: 0
@@ -2356,8 +2356,7 @@ MonoBehaviour:
 
     Marco Forloni
 
-    Matteo
-    Ligoratti'
+    Matteo Ligoratti'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ef401c5d029d4654c9ed65a2d4ffb05a, type: 2}
   m_sharedMaterial: {fileID: 2369779644956536518, guid: ef401c5d029d4654c9ed65a2d4ffb05a,
@@ -5262,14 +5261,14 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Gianluca Lavanga
-
-    Greta Buzzacarin
+  m_text: 'Greta Buzzacarin
 
     Lorenzo Blanco
 
-    Sebastian
-    Kahler'
+    Sebastian Kahler
+
+    Gianluca
+    Lavanga'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ef401c5d029d4654c9ed65a2d4ffb05a, type: 2}
   m_sharedMaterial: {fileID: 2369779644956536518, guid: ef401c5d029d4654c9ed65a2d4ffb05a,
@@ -7871,7 +7870,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToBeLoad: Level
-  sfxClick: {fileID: 0}
+  sfxClick: {fileID: 8300000, guid: 2548a623560cd954691971e4a654f6f0, type: 3}
 --- !u!82 &1550473065
 AudioSource:
   m_ObjectHideFlags: 0
