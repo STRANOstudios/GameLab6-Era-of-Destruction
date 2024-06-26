@@ -846,13 +846,18 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'nome nome
+  m_text: 'Dimitri Marone
 
-    nome nome
+    Giulia Tartaglia
 
-    nome
+    Marie Antoinette (Rigolli?)
 
-    nome'
+    Sara
+    Pavan
+
+    Shanes Jae Tabisaura
+
+    Tiziano Savino'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ef401c5d029d4654c9ed65a2d4ffb05a, type: 2}
   m_sharedMaterial: {fileID: 2369779644956536518, guid: ef401c5d029d4654c9ed65a2d4ffb05a,
@@ -916,7 +921,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: -114.51082}
+  m_margin: {x: 0, y: 0, z: -200.87839, w: -114.51082}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1814,7 +1819,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -467, y: 185.7}
+  m_AnchoredPosition: {x: -367, y: 185.7}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &338683689
@@ -2345,13 +2350,14 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'nome nome
+  m_text: 'Alessandro Torbinio
 
-    nome nome
+    Altea Melfa
 
-    nome
+    Marco Forloni
 
-    nome'
+    Matteo
+    Ligoratti'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ef401c5d029d4654c9ed65a2d4ffb05a, type: 2}
   m_sharedMaterial: {fileID: 2369779644956536518, guid: ef401c5d029d4654c9ed65a2d4ffb05a,
@@ -2415,7 +2421,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: -114.51082}
+  m_margin: {x: 0, y: 0, z: -200.03589, w: -114.51082}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -5196,7 +5202,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -158.1, y: 185.7}
+  m_AnchoredPosition: {x: 41.9, y: 185.7}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1100023476
@@ -5256,13 +5262,14 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'nome nome
+  m_text: 'Gianluca Lavanga
 
-    nome nome
+    Greta Buzzacarin
 
-    nome
+    Lorenzo Blanco
 
-    nome'
+    Sebastian
+    Kahler'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ef401c5d029d4654c9ed65a2d4ffb05a, type: 2}
   m_sharedMaterial: {fileID: 2369779644956536518, guid: ef401c5d029d4654c9ed65a2d4ffb05a,
@@ -5326,7 +5333,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: -114.51082}
+  m_margin: {x: 0, y: 0, z: -133.00125, w: -114.51082}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -10682,7 +10689,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 77.9, y: 185.7}
+  m_AnchoredPosition: {x: 377.9, y: 185.7}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &2004372871
