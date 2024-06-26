@@ -1,7 +1,7 @@
-# Era of Destruction
+# Mecha Rebellion
 
 ## Overview
-**Era of Destruction** is an action-packed game where players take on the role of a giant Godzilla-like monster in a futuristic steampunk world. The main objective is to accumulate as many points as possible by destroying buildings, structures, and tanks within a time limit. The game is set on a detailed map of Staten Island, featuring various threats such as missile launchers and tanks.
+**Mecha Rebellion** is an action-packed game where players take on the role of a giant Godzilla-like monster in a futuristic steampunk world. The main objective is to accumulate as many points as possible by destroying buildings, structures, and tanks within a time limit. The game is set on a detailed map of Staten Island, featuring various threats such as missile launchers and tanks.
 
 ## Table of Contents
 - [Gameplay](#gameplay)
@@ -31,7 +31,7 @@ Accumulate the highest score possible by destroying various targets within the t
 - Buildings have resistance levels. Once depleted, they are destroyed with spectacular visual effects and respawn after a few seconds, growing back with a unique VFX.
 
 ## Features
-- Steampunk-themed graphics and visual effects.
+- Cyberpunk-themed graphics and visual effects.
 - Realistic sound effects and a steampunk-inspired soundtrack.
 - Scoring system based on the destruction of various targets.
 - Health bar and timer displayed on the main screen.
@@ -86,14 +86,27 @@ These steps should allow you to copy a Unity project from GitHub, set it up in U
 
 ## Contributing
 ### Game Designer
+- Alessandro Torbinio
+- Altea Melfa
+- Marco Forloni
+- Matteo Ligoratti
 
 ### Programmer
 - Andrea Frigerio
 
 ### Concept Artist
+- Dimitri Marone
+- Giulia Tartaglia
+- Marie Antoinette (Rigolli?)
+- Sara Pavan
+- Shanes Jae Tabisaura
+- Tiziano Savino
 
 ### 3D Artist
+- Gianluca Lavanga
+- Greta Buzzacarin
+- Lorenzo Blanco
+- Sebastian Kahler
 
 ## License
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
