@@ -31,7 +31,7 @@ Accumulate the highest score possible by destroying various targets within the t
 - Buildings have resistance levels. Once depleted, they are destroyed with spectacular visual effects and respawn after a few seconds, growing back with a unique VFX.
 
 ## Features
-- Steampunk-themed graphics and visual effects.
+- Cyberpunk-themed graphics and visual effects.
 - Realistic sound effects and a steampunk-inspired soundtrack.
 - Scoring system based on the destruction of various targets.
 - Health bar and timer displayed on the main screen.
