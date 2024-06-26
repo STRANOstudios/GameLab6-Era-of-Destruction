@@ -4961,10 +4961,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 20
-  score: 100
+  score: 1400
   sec: 10
   height: 7
-  timeToBuild: 5
+  timeToBuild: 20
   layerMask:
     serializedVersion: 2
     m_Bits: 3072

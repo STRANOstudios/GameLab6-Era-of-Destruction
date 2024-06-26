@@ -35,6 +35,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4752273942947241303, guid: 4f4ccff6383f89a4dae98dc69833274d,
         type: 3}
+      propertyPath: score
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 4752273942947241303, guid: 4f4ccff6383f89a4dae98dc69833274d,
+        type: 3}
+      propertyPath: health
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4752273942947241303, guid: 4f4ccff6383f89a4dae98dc69833274d,
+        type: 3}
       propertyPath: height
       value: 3
       objectReference: {fileID: 0}
