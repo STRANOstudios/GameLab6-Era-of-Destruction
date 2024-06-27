@@ -82,7 +82,7 @@ These steps should allow you to copy a Unity project from GitHub, set it up in U
 
 ### Release
 
-[Download](coming soon)
+[Download](https://github.com/STRANOstudios/GameLab6-Era-of-Destruction/releases/tag/v0.7)
 
 ## Contributing
 ### Game Designer
