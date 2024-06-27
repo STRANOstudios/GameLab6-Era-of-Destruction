@@ -86,7 +86,7 @@ public class Enemy2Controller : MonoBehaviour
 
     IEnumerator Shooting(float delay = 0f)
     {
-        yield return new WaitForSecondsRealtime(delay);
+        yield return new WaitForSecondsRealtime(delay * 0.5f);
 
         foreach (var particleSystem in particleSystems)
         {
