@@ -38,8 +38,8 @@ Accumulate the highest score possible by destroying various targets within the t
 
 ## Controls
 - **Movement:** Arrow keys / WASD
-- **Physical Attack:** Left Mouse Button / Spacebar
-- **Ranged Attack:** Right Mouse Button / Hold to charge, release to fire
+- **Physical Attack:** Left Mouse Button
+- **Ranged Attack:** Right Mouse Button
 
 ## Installation Instructions
 
