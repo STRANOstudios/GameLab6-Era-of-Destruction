@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Level/Prefabs/Build Variant.prefab.meta
 guid: 289c63c273f692f4bb01d7eba7197f82
 PrefabImporter:
+========
+guid: ab8e8448f1308c14f96b53f2d9743f40
+DefaultImporter:
+>>>>>>>> 3D:Assets/Level/Scenes/Menu.unity.meta
   externalObjects: {}
   userData: 
   assetBundleName: 
