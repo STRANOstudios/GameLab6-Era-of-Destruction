@@ -3,7 +3,22 @@ guid: 587ddf85cab96684db0543933799199c
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ruota4
+    second: {fileID: 2100000, guid: 745295890cc8ba040aa28b7c18144878, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Telaio1
+    second: {fileID: 2100000, guid: f0829f157d3d4354bad19592f8011851, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Torretta1
+    second: {fileID: 2100000, guid: 5cd08fb8c4ff9e540b2093d722e81369, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
