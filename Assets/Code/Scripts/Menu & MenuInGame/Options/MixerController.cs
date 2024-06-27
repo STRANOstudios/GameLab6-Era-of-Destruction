@@ -14,7 +14,7 @@ public class MixerController : MonoBehaviour
 
     bool isSetted = false;
 
-    private void Awake()
+    private void Start()
     {
         SetSliderVolumes();
     }
