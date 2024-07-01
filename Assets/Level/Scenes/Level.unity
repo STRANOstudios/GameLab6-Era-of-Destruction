@@ -26748,13 +26748,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8938623419787374222, guid: fc30c7f63ac67b24d9e7ec84bd98c1f6,
         type: 3}
+      propertyPath: fireRatio
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8938623419787374222, guid: fc30c7f63ac67b24d9e7ec84bd98c1f6,
+        type: 3}
       propertyPath: startDelay
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8938623419787374222, guid: fc30c7f63ac67b24d9e7ec84bd98c1f6,
         type: 3}
       propertyPath: impactDelay
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8938623419787374222, guid: fc30c7f63ac67b24d9e7ec84bd98c1f6,
         type: 3}
